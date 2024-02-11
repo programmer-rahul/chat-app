@@ -1,4 +1,6 @@
+import ChatPage from "./pages/chat-page";
+
 const App = () => {
-  return <div></div>;
+  return <ChatPage />;
 };
 export default App;

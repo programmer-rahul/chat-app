@@ -8,4 +8,7 @@ body {
   padding: 0px;
   box-sizing: border-box;
   font-family: "Input Mono";
+  width: full;
+  height: full;
+  /* background-color: #a1a1aa; */
 }
