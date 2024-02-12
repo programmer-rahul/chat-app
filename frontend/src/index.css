@@ -5,15 +5,19 @@
 :root {
   --background: #28292d;
 
-  --primary-message: #383b40;
-  --secondary-message: #0089fc;
+  --primary-message: #0089fc;
+  --secondary-message: #383b40;
 
-  --primary-text: #b5b8be;
+  --primary-text: #d4d1ce;
   --secondary-text: #505153;
 
-  --border: #464747;
+  --border: #2e2929;
 
   --input: transparent;
+  --input-text: rgb(189, 189, 189);
+
+  --primary-btn: #383b40;
+  --primary-btn-text: #d4d1ce;
 }
 
 html,

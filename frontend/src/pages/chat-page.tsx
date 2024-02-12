@@ -1,3 +1,4 @@
+import ChatsBar from "../components/chat/chats-bar";
 import MessagesBar from "../components/chat/messages-bar";
 import TopBar from "../components/chat/top-bar";
 
@@ -12,7 +13,9 @@ const ChatPage = () => {
           <div className="messages-bar w-[35%]">
             <MessagesBar />
           </div>
-          <div className="chats-bar border w-full"></div>
+          <div className="chats-bar w-full">
+            <ChatsBar />
+          </div>
           <div className="current-user-bar border w-[35%]"></div>
         </div>
       </div>

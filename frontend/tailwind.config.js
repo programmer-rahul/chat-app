@@ -15,6 +15,10 @@ export default {
         border: "var(--border)",
 
         input: "var(--input)",
+        inputText: "var(--input-text)",
+
+        primaryBtn: "var(--primary-btn)",
+        primaryBtnText: "var(--primary-btn-text)",
       },
     },
   },

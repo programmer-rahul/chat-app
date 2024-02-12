@@ -4,7 +4,7 @@ const MessagesBar = () => {
   return (
     <div className="h-full ">
       <div className="main h-full  ">
-        <h2 className="text-2xl text-center  text text-secondaryMessage h-[8%]">
+        <h2 className="text-2xl text-center  text text-primaryMessage h-[8%]">
           Messages
         </h2>
 
