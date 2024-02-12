@@ -1,20 +1,10 @@
-import { useEffect } from "react";
 import MessagesBar from "../components/chat/messages-bar";
 import TopBar from "../components/chat/top-bar";
-import { useTheme } from "../context/theme-provider";
 
 const ChatPage = () => {
-  const { currentTheme } = useTheme();
-  // console.log(currentTheme);
-  useEffect(() => {
-    console.log(currentTheme);
-  }, []);
-
   return (
     <main className="w-screen h-screen">
-      <div
-        className={`chat-main w-full h-full px-4 py-3 ${currentTheme.primary_bg} ${currentTheme.primary_text}`}
-      >
+      <div className="chat-main w-full h-full px-4 py-3 bg-background">
         <div className="topbar h-[10%]  ">
           <TopBar />
         </div>

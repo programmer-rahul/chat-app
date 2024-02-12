@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background: #28292d;
+
+  --primary-message: #383b40;
+  --secondary-message: #0089fc;
+
+  --primary-text: #b5b8be;
+  --secondary-text: #505153;
+
+  --border: #464747;
+
+  --input: transparent;
+}
+
 html,
 body {
   margin: 0px;
@@ -10,5 +24,11 @@ body {
   font-family: "Input Mono";
   width: full;
   height: full;
-  /* background-color: #a1a1aa; */
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

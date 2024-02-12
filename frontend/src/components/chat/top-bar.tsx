@@ -1,12 +1,7 @@
-import { useTheme } from "../../context/theme-provider";
-
 const TopBar = () => {
-  const { currentTheme } = useTheme();
   return (
     <div className="flex h-full">
-      <div
-        className={`flex items-center justify-between border-b  w-full ${currentTheme.border}`}
-      >
+      <div className="flex items-center justify-between border-b w-full text-primaryText">
         <div className="logo font-semibold text-3xl">
           <h1>Chat Io</h1>
         </div>
@@ -28,7 +23,7 @@ const TopBar = () => {
             />
           </svg>
           <input
-            className={`bg-transparent outline-none ${currentTheme.input_text}`}
+            className="bg-input outline-none text-secondaryText"
             type="text"
             name=""
             id=""
@@ -36,11 +31,11 @@ const TopBar = () => {
           />
         </div>
         <div className="right-corner flex gap-4">
-          <div className="setting w-10 h-10 rounded-full border-neutral-500 border grid place-items-center">
+          <div className="setting w-10 h-10 rounded-full border border-border grid place-items-center">
             {/* TODO : Setting icon  */}
             <h1>S</h1>
           </div>
-          <div className="profile w-10 h-10 rounded-full border-neutral-500 border grid place-items-center">
+          <div className="profile w-10 h-10 rounded-full border border-border grid place-items-center">
             <img
               src="../../../public/profile.png"
               alt="profile.svg"
