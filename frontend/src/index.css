@@ -11,7 +11,7 @@
   --primary-text: #d4d1ce;
   --secondary-text: #505153;
 
-  --border: #2e2929;
+  --border: #948c8c;
 
   --input: transparent;
   --input-text: rgb(189, 189, 189);
@@ -28,6 +28,7 @@ body {
   font-family: "Input Mono";
   width: full;
   height: full;
+  overflow: hidden;
 }
 .no-scrollbar {
   -ms-overflow-style: none;
