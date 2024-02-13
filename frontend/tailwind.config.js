@@ -19,6 +19,9 @@ export default {
 
         primaryBtn: "var(--primary-btn)",
         primaryBtnText: "var(--primary-btn-text)",
+
+        SecondaryBtn: "var(--secondary-btn)",
+        SecondaryBtnText: "var(--secondary-btn-text)",
       },
     },
   },

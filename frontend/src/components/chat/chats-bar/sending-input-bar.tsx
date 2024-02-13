@@ -1,4 +1,4 @@
-import PrimaryBtn from "../../reusable/primary-btn";
+import Button from "../../reusable/button";
 
 const SendingInputBar = () => {
   return (
@@ -15,7 +15,7 @@ const SendingInputBar = () => {
           <p className="h-10 w-10 border rounded-full"></p>
         </div>
         <div className="send-message">
-          <PrimaryBtn />
+          <Button type="primary" />
         </div>
       </div>
     </div>

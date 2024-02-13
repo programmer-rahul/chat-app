@@ -18,6 +18,9 @@
 
   --primary-btn: #383b40;
   --primary-btn-text: #d4d1ce;
+
+  --secondary-btn: #0089fc;
+  --secondary-btn-text: rgb(189, 189, 189);
 }
 
 html,
