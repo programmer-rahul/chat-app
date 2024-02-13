@@ -5,7 +5,6 @@ import Button from "../components/reusable/button";
 const GetStartedPage = () => {
   const navigate = useNavigate();
   const btnHandler = () => {
-    console.log("cllicke");
     navigate("/login");
   };
 
