@@ -29,15 +29,15 @@ Thumbs.db
 # Output of 'npm pack'
 *.tgz
 
-# Frontend build artifacts
-/frontend/build/
-/frontend/dist/
+# client build artifacts
+/client/build/
+/client/dist/
 
-# Backend build artifacts
-/backend/dist/
+# server build artifacts
+/server/dist/
 
-# Frontend node_modules
-/frontend/node_modules/
+# client node_modules
+/client/node_modules/
 
 # Prettier files
 **/.prettier
