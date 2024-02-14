@@ -54,3 +54,15 @@ export const sendMessage = async (data: NewMessage) => {
     console.log("Error");
   }
 };
+
+export const getCurrentConversation = async (_id: string | undefined) => {
+  try {
+    const response = await apiService.get(`/message/get-conversation/${_id}`, {
+      withCredentials: true,
+    });
+    console.log(response);
+    return response.data;
+  } catch (err) {
+    console.log("Error");
+  }
+};

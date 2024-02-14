@@ -1,19 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMessage } from "../../../context/message-context";
 import ChatTopBar from "./chat-top-bar";
 import FullChats from "./full-chats";
 import SendingInputBar from "./sending-input-bar";
+import { getCurrentConversation } from "../../../services/api";
 
 const ChatsBar = () => {
   const { selectedConversation } = useMessage();
+  const { currentUser } = useMessage();
 
-  useEffect(() => {}, []);
+  const [currentChatMessages, setCurrentChatMessages] = useState([]);
+
+  useEffect(() => {
+    if (selectedConversation) {
+      getCurrentConversation(currentUser?._id).then((data) => {
+        console.log(data);
+        if (!data?.status) return console.log("Something wrong");
+        setCurrentChatMessages(data.data);
+      });
+    }
+  }, [selectedConversation]);
+
   return (
     <div className="h-full">
       {selectedConversation ? (
         <div className="main h-full px-4">
           <ChatTopBar />
-          <FullChats />
+          <FullChats chatMessages={currentChatMessages} />
           <SendingInputBar />
         </div>
       ) : (

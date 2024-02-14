@@ -7,7 +7,7 @@ const SendingInputBar = () => {
   const [messageText, setMessageText] = useState("");
   const { currentUser, selectedConversation } = useMessage();
 
-  const btnHandler = () => {
+  const btnHandler = async () => {
     if (messageText.trim() === "") {
       console.log("message should not be empty");
       // TODO : Handle make button unWorkable if text is empty
@@ -15,14 +15,18 @@ const SendingInputBar = () => {
     }
 
     // call api
-    sendMessage({
+    const { status } = await sendMessage({
       messageText,
       sender: currentUser?._id,
       recipient: selectedConversation,
     });
 
-    // console.log(currentUser);
-    // console.log(selectedConversation);
+    if (!status) {
+      console.log("Error in api call");
+      // TODO : Handle error here
+      return;
+    }
+    setMessageText("");
   };
   return (
     <div className="h-[10%] sending-panel">

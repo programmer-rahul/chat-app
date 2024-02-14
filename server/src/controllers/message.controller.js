@@ -20,3 +20,22 @@ export const addMessageController = asyncHandler(async (req, res, next) => {
     .status(201)
     .json(new ApiResponse(201, {}, "Message added successfully"));
 });
+export const getConversationController = asyncHandler(
+  async (req, res, next) => {
+    const { userid } = req.params;
+    // console.log(params);
+
+    const conversation = await Message.find({
+      $or: [{ sender: userid }, { recipient: userid }],
+    });
+
+    if (!conversation)
+      return next(new ApiError(400, "Error in getting conversation from db"));
+
+    return res
+      .status(201)
+      .json(
+        new ApiResponse(201, conversation, "Conversation fetched successfully")
+      );
+  }
+);
