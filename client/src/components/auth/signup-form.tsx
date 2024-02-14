@@ -2,25 +2,40 @@ import { useState } from "react";
 import Button from "../reusable/button";
 import Input from "../reusable/input";
 import Label from "../reusable/label";
+import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from "../../utils/api";
+import { useAuth } from "../../context/auth-context";
 
 const SignUpForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
 
-  const submitHandler = () => {
+  const { isAuth, setIsAuth } = useAuth();
+  const navigate = useNavigate();
+
+  const submitHandler = async () => {
     // TODO : Field validations
 
     if (username?.trim() === "" || password?.trim() === "") {
       console.log("All Fields required");
       return;
     }
-    if (password?.trim() === confPassword?.trim()) {
-      console.log("Password shoud be same");
+    if (password?.trim() !== confPassword?.trim()) {
+      console.log("Password should be same");
       return;
     }
 
-    // TODO : Call api
+    const data = await registerUser({ username, password });
+    // console.log(data);
+    if (data?.status !== true) {
+      return console.log("Error in register");
+      // TODO : Handle error
+    }
+    localStorage.setItem("user", data?.data?.accessToken);
+    setIsAuth(true);
+
+    navigate("/");
   };
 
   return (
@@ -65,7 +80,7 @@ const SignUpForm = () => {
           <div className="text-sm text-secondaryText text-center">
             <span>Already have an acccount!,</span>
             <span className="text-primaryText font-semibold text-base cursor-pointer">
-              Login
+              <Link to="/login">Login</Link>
             </span>
           </div>
           <Button

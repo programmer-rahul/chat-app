@@ -30,7 +30,6 @@ const Themes: Theme[] = [
     border: "border-[#737373]",
   },
 ];
-console.log(Themes[0]);
 
 type Theme = {
   primary_bg: string;

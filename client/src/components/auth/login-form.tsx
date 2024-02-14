@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "../reusable/button";
 import Input from "../reusable/input";
 import Label from "../reusable/label";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -49,7 +50,7 @@ const LoginForm = () => {
           <div className="text-sm text-secondaryText text-center">
             <span>Don't have any account!,</span>
             <span className="text-primaryText font-semibold text-base cursor-pointer">
-              Sign up
+              <Link to="/signup">Sign up</Link>
             </span>
           </div>
           <Button

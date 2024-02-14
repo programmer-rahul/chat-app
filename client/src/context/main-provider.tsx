@@ -1,7 +1,12 @@
+import { AuthProvider } from "./auth-context";
 import { ThemeProvider } from "./theme-provider";
 
 const MainProvider = ({ children }: { children: React.ReactNode }) => {
-  return <ThemeProvider>{children}</ThemeProvider>;
+  return (
+    <AuthProvider>
+      <ThemeProvider>{children}</ThemeProvider>
+    </AuthProvider>
+  );
 };
 
 export default MainProvider;
