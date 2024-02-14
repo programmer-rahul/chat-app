@@ -85,6 +85,25 @@ const loginController = asyncHandler(async (req, res) => {
     );
 });
 
+const getAllUserController = asyncHandler(async (req, res) => {
+  if (!req?.user)
+    return next(
+      new ApiError(400, "User not found maybe error in verifing jwt")
+    );
+
+  console.log("yes :", req.user);
+
+  const allUsers = await User.find().select("_id username");
+  console.log(allUsers);
+
+  if (allUsers.length === 0)
+    return next(new ApiError(400, "No users found in db"));
+
+  return res
+    .status(202)
+    .json(new ApiResponse(202, allUsers, "All users fetched successfully"));
+});
+
 const getUser = asyncHandler(async (req, res) => {
   if (!req.user) {
     return next(new ApiError(400, "Authentication failed"));
@@ -152,4 +171,5 @@ export {
   getUser,
   logout,
   refreshAccessToken,
+  getAllUserController,
 };

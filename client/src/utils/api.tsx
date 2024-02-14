@@ -24,10 +24,15 @@ export const registerUser = async (data: {
   }
 };
 
-// method,
-//       url: `${Base_Url}/${url}`,
-//       data: userData,
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       withCredentials: true,
+export const getAllUsers = async () => {
+  try {
+    const response = await apiService("/user/all-users", {
+      method: "get",
+      withCredentials: true,
+    });
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

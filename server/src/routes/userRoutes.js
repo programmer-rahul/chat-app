@@ -4,6 +4,7 @@ import {
   loginController,
   logout,
   refreshAccessToken,
+  getAllUserController,
   registerController,
 } from "../controllers/user.controller.js";
 import multerUpload from "../middlewares/multerUpload.js";
@@ -18,6 +19,7 @@ userRoutes.route("/refresh-access-token").get(refreshAccessToken);
 
 // protected routes
 userRoutes.route("/get-user").get(verifyJWT, getUser);
+userRoutes.route("/all-users").get(verifyJWT, getAllUserController);
 userRoutes.route("/logout").get(verifyJWT, logout);
 
 export default userRoutes;

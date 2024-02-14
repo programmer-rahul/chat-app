@@ -8,7 +8,7 @@ const verifyJWT = async (req, res, next) => {
       req?.cookies?.accessToken ||
       req.header("Authorization")?.replace("Bearer", "");
 
-    // console.log(token);
+    console.log(token);
     if (!token) new ApiError(401, "Unauthorized request");
 
     const isValid = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
@@ -25,7 +25,7 @@ const verifyJWT = async (req, res, next) => {
     // console.log("user", req.user);
     next();
   } catch (error) {
-    return next(new ApiError(500, "Error while verifing jwt tokens"));
+    return next(new ApiError(500, `Error while verifing jwt tokens${error}`));
   }
 };
 

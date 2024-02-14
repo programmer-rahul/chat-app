@@ -1,6 +1,14 @@
+import { useEffect, useState } from "react";
 import MessagedUser from "./messaged-user";
+import { getAllUsers } from "../../../utils/api";
 
 const MessagesBar = () => {
+  const [allUsers, setAllUsers] = useState([]);
+
+  useEffect(() => {
+    getAllUsers().then(({ data }) => setAllUsers(data));
+  }, []);
+
   return (
     <div className="h-full">
       <div className="main h-full">
@@ -9,13 +17,9 @@ const MessagesBar = () => {
         </h2>
 
         <div className="users flex flex-col justify-start gap-4 h-[96%] overflow-y-scroll overflow-x-hidden no-scrollbar pb-6">
-          <MessagedUser />
-          <MessagedUser />
-          <MessagedUser />
-          <MessagedUser />
-          <MessagedUser />
-          <MessagedUser />
-          <MessagedUser />
+          {allUsers.map(({ username, _id }, index) => (
+            <MessagedUser key={index} username={username} _id={_id} />
+          ))}
         </div>
       </div>
     </div>
