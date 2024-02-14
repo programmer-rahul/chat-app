@@ -3,8 +3,9 @@ import Button from "../reusable/button";
 import Input from "../reusable/input";
 import Label from "../reusable/label";
 import { Link, useNavigate } from "react-router-dom";
-import { registerUser } from "../../utils/api";
+import { registerUser } from "../../services/api";
 import { useAuth } from "../../context/auth-context";
+import { setUserInLocalStorage } from "../../utils/local-storage";
 
 const SignUpForm = () => {
   const [username, setUsername] = useState("");
@@ -32,7 +33,8 @@ const SignUpForm = () => {
       return console.log("Error in register");
       // TODO : Handle error
     }
-    localStorage.setItem("user", data?.data?.accessToken);
+    // setUserInLocalStorage
+    setUserInLocalStorage(data?.data);
     setIsAuth(true);
 
     navigate("/");

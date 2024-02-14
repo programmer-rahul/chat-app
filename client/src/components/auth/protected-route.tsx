@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { getLocalStorageUser } from "../../utils/get-local-storage";
+import { getLocalStorageUser } from "../../utils/local-storage";
 
 const ProctedRoute = () => {
   const isUser = getLocalStorageUser();

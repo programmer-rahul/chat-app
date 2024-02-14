@@ -36,3 +36,21 @@ export const getAllUsers = async () => {
     console.log(error);
   }
 };
+
+type NewMessage = {
+  messageText: string;
+  sender: string | undefined;
+  recipient: string | null;
+};
+
+export const sendMessage = async (data: NewMessage) => {
+  try {
+    const response = await apiService.post("/message/add-message", data, {
+      withCredentials: true,
+    });
+    console.log(response);
+    return response.data;
+  } catch (err) {
+    console.log("Error");
+  }
+};

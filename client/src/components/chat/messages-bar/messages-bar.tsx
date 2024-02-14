@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MessagedUser from "./messaged-user";
-import { getAllUsers } from "../../../utils/api";
+import { getAllUsers } from "../../../services/api";
 
 const MessagesBar = () => {
   const [allUsers, setAllUsers] = useState([]);
