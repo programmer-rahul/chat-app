@@ -22,6 +22,7 @@ const ChatsBar = () => {
     }
 
   }, [selectedConversation]);
+
   socket
     .on('recieve-message', (data: {}) => {
       console.log("Message Recieved :- ", data);

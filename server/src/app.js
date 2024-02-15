@@ -2,6 +2,7 @@ import express, { urlencoded } from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import errorHandler from "./middlewares/errorHandler.js";
+import { createServer } from "http";
 
 const app = express();
 
@@ -33,4 +34,5 @@ app.use("/api/v1/message", messageRoutes);
 // middleware for errorHandling
 app.use(errorHandler);
 
-export default app;
+const server = createServer(app);
+export default server;
