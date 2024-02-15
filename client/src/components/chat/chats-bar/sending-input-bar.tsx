@@ -1,11 +1,13 @@
 import { useState } from "react";
 import Button from "../../reusable/button";
-import { sendMessage } from "../../../services/api";
+import { NewMessage } from "../../../services/api";
 import { useMessage } from "../../../context/message-context";
+import { socket } from "../../../pages/chat-page";
 
 const SendingInputBar = () => {
   const [messageText, setMessageText] = useState("");
   const { currentUser, selectedConversation } = useMessage();
+
 
   const btnHandler = async () => {
     if (messageText.trim() === "") {
@@ -13,21 +15,17 @@ const SendingInputBar = () => {
       // TODO : Handle make button unWorkable if text is empty
       return;
     }
+    // Socket 
 
-    // call api
-    const { status } = await sendMessage({
-      messageText,
-      sender: currentUser?._id,
-      recipient: selectedConversation,
-    });
-
-    if (!status) {
-      console.log("Error in api call");
-      // TODO : Handle error here
-      return;
+    const NewMessage: NewMessage = {
+      messageText: messageText, recipient: selectedConversation, sender: currentUser?._id
     }
+    socket.emit("message", NewMessage);
+
     setMessageText("");
   };
+
+
   return (
     <div className="h-[10%] sending-panel">
       <div className="px-4 md:px-2 flex gap-4 md:gap-2 justify-center items-center h-full w-full">

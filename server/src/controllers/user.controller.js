@@ -25,7 +25,6 @@ const registerController = asyncHandler(async (req, res, next) => {
 
   if (isUserExists)
     return next(new ApiError(400, "Username or email already exists"));
-  console.log("Code running");
 
   let user = await User.create({
     username,
@@ -91,17 +90,23 @@ const getAllUserController = asyncHandler(async (req, res) => {
       new ApiError(400, "User not found maybe error in verifing jwt")
     );
 
-  console.log("yes :", req.user);
-
   const allUsers = await User.find().select("_id username");
-  console.log(allUsers);
+  // console.log("user :-", req.user);
+  // console.log("all users :- ", allUsers);
 
   if (allUsers.length === 0)
     return next(new ApiError(400, "No users found in db"));
 
+  const filteredUsers = allUsers.filter(
+    (user) => user.username !== req?.user.username
+  );
+  // console.log(filteredUsers);
+
   return res
     .status(202)
-    .json(new ApiResponse(202, allUsers, "All users fetched successfully"));
+    .json(
+      new ApiResponse(202, filteredUsers, "All users fetched successfully")
+    );
 });
 
 const getUser = asyncHandler(async (req, res) => {
@@ -125,7 +130,6 @@ const logout = asyncHandler(async (req, res) => {
       refreshToken: null,
     },
   });
-  console.log(logoutUser);
 
   if (!logoutUser)
     return next(new ApiError(400, "invalid cookies or expired cookies"));

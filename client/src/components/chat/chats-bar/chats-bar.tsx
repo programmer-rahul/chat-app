@@ -4,6 +4,7 @@ import ChatTopBar from "./chat-top-bar";
 import FullChats from "./full-chats";
 import SendingInputBar from "./sending-input-bar";
 import { getCurrentConversation } from "../../../services/api";
+import { socket } from "../../../pages/chat-page";
 
 const ChatsBar = () => {
   const { selectedConversation } = useMessage();
@@ -14,12 +15,19 @@ const ChatsBar = () => {
   useEffect(() => {
     if (selectedConversation) {
       getCurrentConversation(currentUser?._id).then((data) => {
-        console.log(data);
+        // console.log(data);
         if (!data?.status) return console.log("Something wrong");
         setCurrentChatMessages(data.data);
       });
     }
+
   }, [selectedConversation]);
+  socket
+    .on('recieve-message', (data: {}) => {
+      console.log("Message Recieved :- ", data);
+      let tempMessages = [...currentChatMessages, data];
+      setCurrentChatMessages(tempMessages);
+    })
 
   return (
     <div className="h-full">

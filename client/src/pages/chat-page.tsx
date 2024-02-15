@@ -1,8 +1,23 @@
+import { useEffect, useMemo } from "react";
 import ChatsBar from "../components/chat/chats-bar/chats-bar";
 import MessagesBar from "../components/chat/messages-bar/messages-bar";
 import TopBar from "../components/chat/top-bar/top-bar";
-
+import { io } from 'socket.io-client'
+import { useMessage } from "../context/message-context";
+export let socket;
 const ChatPage = () => {
+  socket = useMemo(() => io('http://localhost:5000'), []);
+  const { currentUser } = useMessage();
+
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Connected to server");
+      socket.emit('login', currentUser?._id);
+    });
+  }, []);
+
+
   return (
     <main className="w-screen h-screen">
       <div className="chat-main w-full h-full p-2 bg-background">

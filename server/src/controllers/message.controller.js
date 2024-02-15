@@ -6,7 +6,7 @@ import ApiError from "../utils/ApiError.js";
 export const addMessageController = asyncHandler(async (req, res, next) => {
   const { sender, recipient, messageText } = req.body;
 
-  console.log(sender);
+  // console.log(sender);
   const message = await Message.create({
     sender,
     recipient,

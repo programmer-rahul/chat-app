@@ -19,7 +19,7 @@ const FullChats = ({ chatMessages }: FullChatProps) => {
   return (
     <div className="chats border-b flex flex-col justify-start gap-6 pr-2 h-[84%] overflow-y-scroll overflow-x-hidden no-scrollbar pb-6">
       {chatMessages.map((message, index) => {
-        console.log(currentUser?._id);
+        console.log(message);
 
         return (
           <Message

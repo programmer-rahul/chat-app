@@ -30,14 +30,13 @@ export const getAllUsers = async () => {
       method: "get",
       withCredentials: true,
     });
-    // console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
   }
 };
 
-type NewMessage = {
+export type NewMessage = {
   messageText: string;
   sender: string | undefined;
   recipient: string | null;
@@ -60,7 +59,7 @@ export const getCurrentConversation = async (_id: string | undefined) => {
     const response = await apiService.get(`/message/get-conversation/${_id}`, {
       withCredentials: true,
     });
-    console.log(response);
+    // console.log(response);
     return response.data;
   } catch (err) {
     console.log("Error");
