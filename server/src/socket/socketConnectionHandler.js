@@ -34,7 +34,7 @@ const disconnectSocket = (socket) => {
   console.log("Total Connection Count :- ", connectedUsers.length);
 };
 
-const messageSocket = (socket, { messageText, recipient, sender }) => {
+const messageSocket = (socket, { message, recipient, sender }) => {
   // console.log("New Message Recieved in server");
   const isRecipientOnline = connectedUsers.find(
     (user) => user.userId === recipient
@@ -44,13 +44,13 @@ const messageSocket = (socket, { messageText, recipient, sender }) => {
     let recipientSocketId = isRecipientOnline.socketId;
     socket
       .to(recipientSocketId)
-      .emit("recieve-message", { message: messageText, sender, recipient });
+      .emit("recieve-message", { message, sender, recipient });
 
-    storeMessageInDB({ messageText, recipient, sender });
+    storeMessageInDB({ message, recipient, sender });
     console.log("Message sent to user in realtime");
   } else {
-    console.log("Recipient is not online");
-    storeMessageInDB({ messageText, recipient, sender });
+    console.log("Recipient is not online", recipient);
+    storeMessageInDB({ message, recipient, sender });
     console.log("Message stored to DB");
   }
 };

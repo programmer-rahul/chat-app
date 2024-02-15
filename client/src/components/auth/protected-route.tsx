@@ -1,10 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { getLocalStorageUser } from "../../utils/local-storage";
+import { useAuth } from "../../context/auth-context";
 
-const ProctedRoute = () => {
-  const isUser = getLocalStorageUser();
+const ProtectedRoutes = () => {
+  const { isAuth } = useAuth();
 
-  // return isUser ? <Outlet /> : <Navigate to={"/"} />;
-  return <Outlet />;
+  return isAuth ? <Navigate to={"/"} /> : <Outlet />
 };
-export default ProctedRoute;
+export default ProtectedRoutes;

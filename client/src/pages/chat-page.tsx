@@ -3,12 +3,14 @@ import ChatsBar from "../components/chat/chats-bar/chats-bar";
 import MessagesBar from "../components/chat/messages-bar/messages-bar";
 import TopBar from "../components/chat/top-bar/top-bar";
 import { io } from 'socket.io-client'
-import { useMessage } from "../context/message-context";
+import { useConversation } from "../context/conversation-context";
+
 export let socket;
+
+
 const ChatPage = () => {
   socket = useMemo(() => io('http://localhost:5000'), []);
-  const { currentUser } = useMessage();
-
+  const { currentUser } = useConversation();
 
   useEffect(() => {
     socket.on("connect", () => {

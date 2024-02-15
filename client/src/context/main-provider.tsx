@@ -1,13 +1,13 @@
 import { AuthProvider } from "./auth-context";
-import { MessageProvider } from "./message-context";
+import { ConversationProvider } from "./conversation-context";
 import { ThemeProvider } from "./theme-provider";
 
 const MainProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <AuthProvider>
-      <MessageProvider>
+      <ConversationProvider>
         <ThemeProvider>{children}</ThemeProvider>
-      </MessageProvider>
+      </ConversationProvider>
     </AuthProvider>
   );
 };

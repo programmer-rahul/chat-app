@@ -37,9 +37,9 @@ export const getAllUsers = async () => {
 };
 
 export type NewMessage = {
-  messageText: string;
+  message: string;
   sender: string | undefined;
-  recipient: string | null;
+  recipient: string | undefined;
 };
 
 export const sendMessage = async (data: NewMessage) => {

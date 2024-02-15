@@ -1,4 +1,4 @@
-import { useMessage } from "../../../context/message-context";
+import { useConversation } from "../../../context/conversation-context";
 import ProfileIcon from "../reusable/profile-icon";
 
 type MessageUserProps = {
@@ -7,10 +7,10 @@ type MessageUserProps = {
 };
 
 const MessagedUser = ({ username, _id }: MessageUserProps) => {
-  const { setSelectedConversation } = useMessage();
+  const { setSelectedConversation } = useConversation();
   return (
     <div
-      onClick={() => setSelectedConversation(_id)}
+      onClick={() => setSelectedConversation({ username, _id })}
       className="user cursor-pointer flex gap-2 items-center w-full"
     >
       <div>

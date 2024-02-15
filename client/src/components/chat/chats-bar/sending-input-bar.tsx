@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Button from "../../reusable/button";
 import { NewMessage } from "../../../services/api";
-import { useMessage } from "../../../context/message-context";
+import { useConversation } from "../../../context/conversation-context";
 import { socket } from "../../../pages/chat-page";
 
 const SendingInputBar = () => {
   const [messageText, setMessageText] = useState("");
-  const { currentUser, selectedConversation } = useMessage();
+  const { currentUser, selectedConversation, setSelectedConversationMessages, selectedConversationMessages } = useConversation();
 
 
   const btnHandler = async () => {
@@ -15,13 +15,17 @@ const SendingInputBar = () => {
       // TODO : Handle make button unWorkable if text is empty
       return;
     }
-    // Socket 
 
-    const NewMessage: NewMessage = {
-      messageText: messageText, recipient: selectedConversation, sender: currentUser?._id
+    // now sending message to socket connection
+    const newMessage: NewMessage = {
+      message: messageText, recipient: selectedConversation?._id, sender: currentUser?._id
     }
-    socket.emit("message", NewMessage);
+    socket.emit("message", newMessage);
+    console.log("clicked");
 
+    let temp = [...selectedConversationMessages, newMessage];
+    console.log(temp);
+    setSelectedConversationMessages(temp);
     setMessageText("");
   };
 

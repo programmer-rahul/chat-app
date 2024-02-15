@@ -1,33 +1,33 @@
-import { useEffect, useState } from "react";
-import { useMessage } from "../../../context/message-context";
+import { useEffect } from "react";
+import { useConversation } from "../../../context/conversation-context";
 import ChatTopBar from "./chat-top-bar";
-import FullChats from "./full-chats";
+import Conversation from "./conversation";
 import SendingInputBar from "./sending-input-bar";
 import { getCurrentConversation } from "../../../services/api";
 import { socket } from "../../../pages/chat-page";
 
 const ChatsBar = () => {
-  const { selectedConversation } = useMessage();
-  const { currentUser } = useMessage();
+  const { selectedConversation, currentUser, selectedConversationMessages, setSelectedConversationMessages } = useConversation();
 
-  const [currentChatMessages, setCurrentChatMessages] = useState([]);
 
   useEffect(() => {
+    // fetch conversation from db of selected conversation
+    console.log("inde", selectedConversation);
     if (selectedConversation) {
       getCurrentConversation(currentUser?._id).then((data) => {
-        // console.log(data);
         if (!data?.status) return console.log("Something wrong");
-        setCurrentChatMessages(data.data);
+        setSelectedConversationMessages(data.data);
       });
     }
-
   }, [selectedConversation]);
 
   socket
     .on('recieve-message', (data: {}) => {
       console.log("Message Recieved :- ", data);
-      let tempMessages = [...currentChatMessages, data];
-      setCurrentChatMessages(tempMessages);
+      let tempMessages = [...selectedConversationMessages, data];
+      console.log(tempMessages)
+
+      setSelectedConversationMessages(tempMessages);
     })
 
   return (
@@ -35,7 +35,7 @@ const ChatsBar = () => {
       {selectedConversation ? (
         <div className="main h-full px-4">
           <ChatTopBar />
-          <FullChats chatMessages={currentChatMessages} />
+          <Conversation />
           <SendingInputBar />
         </div>
       ) : (
