@@ -2,7 +2,7 @@ type ButtonProps = {
   type: "primary" | "secondary";
   btnType?: "button" | "submit" | "reset";
   styles?: string;
-  text?: "send" | "get started" | "login" | "sign up";
+  text?: "send" | "get started" | "login" | "sign up" | "skip" | "continue";
   handleClick?: () => void;
 };
 
@@ -22,7 +22,7 @@ const Button = ({
   styles,
   btnType = "button",
   text = "send",
-  handleClick = () => {},
+  handleClick = () => { },
 }: ButtonProps) => {
   const { button } = buttonStyles[type];
 

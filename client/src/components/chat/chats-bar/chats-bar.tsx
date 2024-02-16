@@ -12,7 +12,6 @@ const ChatsBar = () => {
 
   useEffect(() => {
     // fetch conversation from db of selected conversation
-    console.log("inde", selectedConversation);
     if (selectedConversation) {
       getCurrentConversation(currentUser?._id).then((data) => {
         if (!data?.status) return console.log("Something wrong");

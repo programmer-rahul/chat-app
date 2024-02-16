@@ -109,6 +109,16 @@ const getAllUserController = asyncHandler(async (req, res) => {
     );
 });
 
+const updateProfileImage = asyncHandler(async (req, res, next) => {
+  console.log(req.file);
+
+  if (!req?.file) return next(new ApiError(400, "Images not available"));
+
+  return res
+    .status(202)
+    .json(new ApiResponse(202, {}, "Profile image updated successfully"));
+});
+
 const getUser = asyncHandler(async (req, res) => {
   if (!req.user) {
     return next(new ApiError(400, "Authentication failed"));
@@ -176,4 +186,5 @@ export {
   logout,
   refreshAccessToken,
   getAllUserController,
+  updateProfileImage,
 };

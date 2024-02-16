@@ -65,3 +65,15 @@ export const getCurrentConversation = async (_id: string | undefined) => {
     console.log("Error");
   }
 };
+
+export const updateProfileImage = async (profile) => {
+  try {
+    const response = await apiService.put("/user/update-profile", profile, {
+      withCredentials: true,
+    });
+    console.log(response);
+    return response.data;
+  } catch (err) {
+    console.log("Error", err);
+  }
+};

@@ -6,6 +6,7 @@ import {
   refreshAccessToken,
   getAllUserController,
   registerController,
+  updateProfileImage,
 } from "../controllers/user.controller.js";
 import multerUpload from "../middlewares/multerUpload.js";
 import verifyJWT from "../middlewares/verifyJWT.js";
@@ -21,5 +22,8 @@ userRoutes.route("/refresh-access-token").get(refreshAccessToken);
 userRoutes.route("/get-user").get(verifyJWT, getUser);
 userRoutes.route("/all-users").get(verifyJWT, getAllUserController);
 userRoutes.route("/logout").get(verifyJWT, logout);
+userRoutes
+  .route("/update-profile")
+  .put(multerUpload.single("profile"), updateProfileImage);
 
 export default userRoutes;
