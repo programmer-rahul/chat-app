@@ -3,20 +3,43 @@ import Button from "../reusable/button";
 import Input from "../reusable/input";
 import Label from "../reusable/label";
 import { Link } from "react-router-dom";
+import useAxios from "../../services/api";
+import { useAuth } from "../../context/auth-context";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitHandler = () => {
-    // TODO : Field validations
+  const { fetchData } = useAxios();
+  const { setIsAuth } = useAuth();
 
+
+  const submitHandler = async () => {
+    // TODO : Field validations
     if (username?.trim() === "" || password?.trim() === "") {
       console.log("All Fields required");
       return;
     }
 
     // TODO : Call api
+    const data = await fetchData({ url: "/user/login", method: "post", data: { username, password }, withCredentials: true })
+
+    console.log("Data :- ", data);
+
+    if (!data.status) return console.log("Error in login");
+
+    console.log(data.data.user);
+    // await setUserInLocalStorage(data.data.user);
+
+    try {
+      localStorage.setItem("user", JSON.stringify(data.data.user));
+      console.log("User setted in localStorage");
+    } catch (error) {
+      console.log("Error in setting user in localStorage");
+    }
+
+    setIsAuth(true);
+
   };
 
   return (

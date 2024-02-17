@@ -24,6 +24,6 @@ userRoutes.route("/all-users").get(verifyJWT, getAllUserController);
 userRoutes.route("/logout").get(verifyJWT, logout);
 userRoutes
   .route("/update-profile")
-  .put(multerUpload.single("profile"), updateProfileImage);
+  .put(multerUpload.single("profile"), verifyJWT, updateProfileImage);
 
 export default userRoutes;

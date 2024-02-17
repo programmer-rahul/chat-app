@@ -1,38 +1,84 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Button from "../reusable/button";
 import Input from "../reusable/input";
 import Label from "../reusable/label";
 import { Link } from "react-router-dom";
-import { registerUser } from "../../services/api";
+import useAxios from "../../services/api";
 import { setUserInLocalStorage } from "../../utils/local-storage";
+import { useAuth } from "../../context/auth-context";
+import { Error } from "../../utils/types";
 
-const SignUpForm = ({ setCompleted }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confPassword, setConfPassword] = useState("");
+type UserFields = {
+  username: string,
+  password: string,
+  confPassword: string,
+}
+
+const SignUpForm = ({ setCompleted }: { setCompleted: Dispatch<SetStateAction<boolean>> }) => {
+
+  const [userFields, setUserFields] = useState<UserFields>({
+    username: "",
+    password: "",
+    confPassword: ""
+  });
+  const [errors, setErrors] = useState<Error>({});
+  const { fetchData, response } = useAxios();
+  const { setIsAuth } = useAuth();
+
+
+  // type Response = {
+  //   data: Data | null,
+  //   status: false,
+  //   statusCode?: number,
+  //   message: string,
+  // }
+
+  useEffect(() => {
+    if (response) {
+      console.log("inside useEffect :", response);
+      if (response.status) {
+        response.data && setUserInLocalStorage(response?.data.user); setIsAuth(true); setCompleted(true)
+      }
+      else {
+        setErrors(prev => { return { ...prev, apiError: response.message } });
+        console.log("error in register", errors);
+      }
+    }
+  }, [response]);
 
   const submitHandler = async () => {
-    // TODO : Field validations
-    if (username?.trim() === "" || password?.trim() === "") {
-      console.log("All Fields required");
-      return;
+
+    if (!formValidations()) return console.log('Validation Failed!');
+    await fetchData({ url: "/user/register", data: userFields, method: "post" })
+    // console.log("response :", response);
+  };
+
+  const formValidations = () => {
+    const { username, password, confPassword } = userFields;
+    let errors: Error = {};
+
+    if (username?.trim() === "") {
+      errors.username = "Username is Required"
+      console.log("yes")
+    }
+    if (password?.length < 6) {
+      errors.password = "Password should be 6 character long"
+    }
+    if (password?.trim() === "") {
+      errors.password = "Password is Required"
+    }
+    if (confPassword?.trim() === "") {
+      errors.confPassword = "Confirm Password is Required";
     }
     if (password?.trim() !== confPassword?.trim()) {
-      console.log("Password should be same");
-      return;
+      errors.confPassword = "Password and Confirm Password should be same"
     }
 
-    const data = await registerUser({ username, password });
-    // console.log(data);
-    if (data?.status !== true) {
-      return console.log("Error in register");
-      // TODO : Handle error
-    }
+    setErrors(errors);
 
-    // setUserInLocalStorage
-    setCompleted(true);
-    setUserInLocalStorage(data?.data);
-  };
+    return Object.keys(errors).length === 0 ? true : false
+  }
+
 
   return (
     <div className="container bg-background shadow-2xl rounded-xl p-8 py-16 flex gap-16 flex-col items-start  w-[600px] h-4/5">
@@ -44,10 +90,8 @@ const SignUpForm = ({ setCompleted }) => {
               <Label text="Username" />
               <Input
                 placeholder="Enter your username"
-                value={username}
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
+                value={userFields.username}
+                onChange={(e) => setUserFields(prev => { return { ...prev, username: e.target.value } })}
               />
             </div>
             <div className="space-y-2">
@@ -55,10 +99,9 @@ const SignUpForm = ({ setCompleted }) => {
               <Input
                 placeholder="Enter your password"
                 type="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                value={userFields.password}
+                onChange={(e) => setUserFields(prev => { return { ...prev, password: e.target.value } })}
+
               />
             </div>
             <div className="space-y-2">
@@ -66,10 +109,9 @@ const SignUpForm = ({ setCompleted }) => {
               <Input
                 placeholder="Type Confirm password"
                 type="password"
-                value={confPassword}
-                onChange={(e) => {
-                  setConfPassword(e.target.value);
-                }}
+                value={userFields.confPassword}
+                onChange={(e) => setUserFields(prev => { return { ...prev, confPassword: e.target.value } })}
+
               />
             </div>
           </div>

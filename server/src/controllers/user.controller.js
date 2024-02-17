@@ -14,28 +14,25 @@ const registerController = asyncHandler(async (req, res, next) => {
 
   //   validations
   if (!username?.trim() || !password.trim())
-    throw new ApiError(400, "All fields required");
+    return next(new ApiError(400, "All fields required"));
 
   if (password.length < 6)
-    throw new ApiError(400, "Password should be 6 character long");
-
-  // if (!req?.file) throw new ApiError(400, "Avatar is required");
+    return next(new ApiError(400, "Password should be 6 character long"));
 
   const isUserExists = await User.findOne({ username });
 
   if (isUserExists)
     return next(new ApiError(400, "Username or email already exists"));
 
-  let user = await User.create({
+  let newUser = await User.create({
     username,
     password,
   });
+  const accessToken = generateAccessToken(newUser);
+  const refreshToken = generateRefreshToken(newUser);
 
-  const accessToken = generateAccessToken(user);
-  const refreshToken = generateRefreshToken(user);
-
-  let newUser = await User.findByIdAndUpdate(
-    user._id,
+  let user = await User.findByIdAndUpdate(
+    newUser._id,
     {
       $set: { refreshToken },
     },
@@ -49,7 +46,7 @@ const registerController = asyncHandler(async (req, res, next) => {
     .json(
       new ApiResponse(
         201,
-        { newUser, refreshToken, accessToken },
+        { user, refreshToken, accessToken },
         "User create successfully"
       )
     );
@@ -58,18 +55,28 @@ const registerController = asyncHandler(async (req, res, next) => {
 const loginController = asyncHandler(async (req, res) => {
   const { username, password } = req.body;
 
-  if (!username) throw new ApiError(400, "Username required");
+  if (!username) return next(new ApiError(400, "Username required"));
 
-  if (!password?.trim()) throw new ApiError(400, "Fields should not be empty");
+  if (!password?.trim())
+    return next(new ApiError(400, "Fields should not be empty"));
 
   const fetchedUser = await User.findOne({ username });
-  if (!fetchedUser) throw new ApiError(400, "Wrong username or password");
+
+  if (!fetchedUser)
+    return next(new ApiError(400, "Wrong username or password"));
 
   const isPasswordCorrect = await fetchedUser.isPasswordCorrect(password);
-  if (!isPasswordCorrect) throw new ApiError(400, "Password is wrong");
+  if (!isPasswordCorrect) return next(new ApiError(400, "Password is wrong"));
 
   const accessToken = generateAccessToken(fetchedUser);
   const refreshToken = fetchedUser.refreshToken;
+
+  const user = {
+    _id: fetchedUser._id,
+    username: fetchedUser.username,
+    avatar: fetchedUser.avatar,
+    refreshToken: fetchedUser.refreshToken,
+  };
 
   return res
     .status(200)
@@ -78,7 +85,7 @@ const loginController = asyncHandler(async (req, res) => {
     .json(
       new ApiResponse(
         200,
-        { fetchedUser, refreshToken, accessToken },
+        { user, refreshToken, accessToken },
         "User logged in successfully"
       )
     );
@@ -114,9 +121,16 @@ const updateProfileImage = asyncHandler(async (req, res, next) => {
 
   if (!req?.file) return next(new ApiError(400, "Images not available"));
 
+  const updatedImage = await User.findByIdAndUpdate(req?.user?._id, {
+    $set: { avatar: req?.file?.path },
+  });
+  if (!updatedImage) return next(new ApiError(400, "User is not found"));
+
   return res
     .status(202)
-    .json(new ApiResponse(202, {}, "Profile image updated successfully"));
+    .json(
+      new ApiResponse(202, updatedImage, "Profile image updated successfully")
+    );
 });
 
 const getUser = asyncHandler(async (req, res) => {
@@ -148,7 +162,7 @@ const logout = asyncHandler(async (req, res) => {
     .status(200)
     .clearCookie("accessToken")
     .clearCookie("refreshToken")
-    .json(new ApiResponse(200, logoutUser, "Logout Successfully"));
+    .json(new ApiResponse(200, {}, "Logout Successfully"));
 });
 
 const refreshAccessToken = asyncHandler(async (req, res) => {

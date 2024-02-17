@@ -1,15 +1,10 @@
-export type User = {
-  username: string;
-  _id: string | undefined;
-  refreshToken: string;
-  avatar: string;
-};
+import { User } from "../services/api";
 
 export const getLocalStorageUser = () => {
   return localStorage.getItem("user");
 };
 
-export const setUserInLocalStorage = ({ newUser }: { newUser: User }) => {
+export const setUserInLocalStorage = async (newUser: User) => {
   const { username, _id, refreshToken, avatar } = newUser;
   const user: User = { username, _id, refreshToken, avatar };
 
