@@ -108,7 +108,7 @@ const useAxios = () => {
       setResponse({
         data: null,
         status: false,
-        message: error.message ? error.response.data.message : error.message
+        message: error.response ? error.response.data.message : "Something went wrong"
       });
     }
     finally {

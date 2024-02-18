@@ -1,35 +1,43 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../context/auth-context";
 import { useNavigate } from "react-router-dom";
-import { updateProfileImage } from "../../services/api";
+import useAxios, { updateProfileImage } from "../../services/api";
 import Button from "../reusable/button";
+import { setUserInLocalStorage } from "../../utils/local-storage";
 
 const SelectProfleImage = () => {
     const imageElement = useRef();
     const [selectedImage, setSelectedImage] = useState(null);
     const { setIsAuth } = useAuth();
+    const { fetchData, response } = useAxios();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (response) {
+            console.log(response);
+            if (response.status) {
+                response.data && setUserInLocalStorage(response?.data.user); setIsAuth(true);
+            }
+            else {
+                setErrors(prev => { return { ...prev, apiError: response.message } });
+                console.log("error in register", errors);
+            }
+        }
+    }, [response]);
 
     const skipBtnHandler = () => {
         navigate('/');
         setIsAuth(true);
     }
 
-    const continueBtnHandler = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const continueBtnHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         if (selectedImage === null) return
-
         const formData = new FormData();
         formData.append('profile', selectedImage)
-
-        const { status } = await updateProfileImage(formData);
-
-        if (!status) return console.log("Error in uploading profile image");
-
-        navigate('/');
-        setIsAuth(true);
+        await fetchData({ url: "/user/update-profile", method: "put", data: formData, withCredentials: true })
     }
+
     const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         imageElement.current.src = URL.createObjectURL(e.target.files[0]);
         setSelectedImage(e.target.files[0]);
@@ -48,7 +56,7 @@ const SelectProfleImage = () => {
             </div>
             <div className="flex border w-full justify-between">
                 <Button type="primary" text="skip" handleClick={skipBtnHandler} />
-                <Button type="secondary" btnType="submit" text="continue" />
+                <Button type={`${selectedImage ? "secondary" : "primary"}`} btnType="submit" text="continue" />
             </div>
         </form >
     )

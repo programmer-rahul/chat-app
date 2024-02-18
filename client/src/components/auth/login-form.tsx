@@ -1,71 +1,68 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../reusable/button";
 import Input from "../reusable/input";
 import Label from "../reusable/label";
 import { Link } from "react-router-dom";
 import useAxios from "../../services/api";
 import { useAuth } from "../../context/auth-context";
+import { Errors, UserFields } from "../../utils/types";
+import { formValidations } from "../../utils/validations";
+import { setUserInLocalStorage } from "../../utils/local-storage";
 
 const LoginForm = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-
-  const { fetchData } = useAxios();
+  const { fetchData, response } = useAxios();
   const { setIsAuth } = useAuth();
 
+  const [userFields, setUserFields] = useState<UserFields>({
+    username: "",
+    password: ""
+  })
+  const [errors, setErrors] = useState<Errors>({});
+
+  useEffect(() => {
+    if (response) {
+      if (response.status) {
+        response.data && setUserInLocalStorage(response?.data.user); setIsAuth(true)
+      }
+      else {
+        setErrors(prev => { return { ...prev, apiError: response.message } });
+        console.log("error in login", errors);
+      }
+    }
+  }, [response]);
 
   const submitHandler = async () => {
-    // TODO : Field validations
-    if (username?.trim() === "" || password?.trim() === "") {
-      console.log("All Fields required");
-      return;
-    }
+    if (!formValidations({ userFields, setErrors })) return console.log('Validation Failed!');
 
-    // TODO : Call api
-    const data = await fetchData({ url: "/user/login", method: "post", data: { username, password }, withCredentials: true })
-
-    console.log("Data :- ", data);
-
-    if (!data.status) return console.log("Error in login");
-
-    console.log(data.data.user);
-    // await setUserInLocalStorage(data.data.user);
-
-    try {
-      localStorage.setItem("user", JSON.stringify(data.data.user));
-      console.log("User setted in localStorage");
-    } catch (error) {
-      console.log("Error in setting user in localStorage");
-    }
-
-    setIsAuth(true);
-
+    await fetchData({ url: "/user/login", method: "post", data: { username: userFields.username, password: userFields.password }, withCredentials: true });
   };
 
   return (
     <div className="w-full h-full">
       <div className="flex flex-col gap-4 h-full ">
-        <div className="flex flex-col h-[60%] gap-4">
-          <div className="space-y-2">
+        <div className="flex flex-col h-[60%]">
+          <div className="space-y-2 h-[40%] ">
             <Label text="Username" />
             <Input
               placeholder="Enter your username"
-              value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
+              value={userFields.username}
+              onChange={(e) => setUserFields(prev => { return { ...prev, username: e.target.value } })}
             />
+            {
+              errors?.username && <p className="text-red-600">{errors.username}</p>
+            }
           </div>
-          <div className="space-y-2">
+          <div className="space-y-2 h-[40%]">
             <Label text="Password" htmlFor="password" />
             <Input
               placeholder="Enter your password"
               type="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              value={userFields.password}
+              onChange={(e) => setUserFields(prev => { return { ...prev, password: e.target.value } })}
             />
+            {
+              errors?.password && <p className="text-red-600">{errors.password}</p>
+            }
           </div>
         </div>
 

@@ -11,6 +11,7 @@ const SignUpPage = () => {
         {
           isSignUpFormCompleted ? <SelectProfleImage /> : <SignUpForm setCompleted={setIsSignUpFormCompleted} />
         }
+        {/* <SelectProfleImage /> */}
       </div>
     </div>
   );

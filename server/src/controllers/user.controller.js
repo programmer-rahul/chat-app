@@ -52,7 +52,7 @@ const registerController = asyncHandler(async (req, res, next) => {
     );
 });
 
-const loginController = asyncHandler(async (req, res) => {
+const loginController = asyncHandler(async (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username) return next(new ApiError(400, "Username required"));
@@ -91,7 +91,7 @@ const loginController = asyncHandler(async (req, res) => {
     );
 });
 
-const getAllUserController = asyncHandler(async (req, res) => {
+const getAllUserController = asyncHandler(async (req, res, next) => {
   if (!req?.user)
     return next(
       new ApiError(400, "User not found maybe error in verifing jwt")
@@ -123,7 +123,8 @@ const updateProfileImage = asyncHandler(async (req, res, next) => {
 
   const updatedImage = await User.findByIdAndUpdate(req?.user?._id, {
     $set: { avatar: req?.file?.path },
-  });
+  }).select("avatar refreshToken username");
+
   if (!updatedImage) return next(new ApiError(400, "User is not found"));
 
   return res
@@ -133,7 +134,7 @@ const updateProfileImage = asyncHandler(async (req, res, next) => {
     );
 });
 
-const getUser = asyncHandler(async (req, res) => {
+const getUser = asyncHandler(async (req, res, next) => {
   if (!req.user) {
     return next(new ApiError(400, "Authentication failed"));
   }
@@ -143,7 +144,7 @@ const getUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(201, req.user, "User fetched successfully"));
 });
 
-const logout = asyncHandler(async (req, res) => {
+const logout = asyncHandler(async (req, res, next) => {
   if (!req.user)
     return next(
       new ApiError(400, "Unable to logout reason :- authentication failed")
@@ -165,7 +166,7 @@ const logout = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Logout Successfully"));
 });
 
-const refreshAccessToken = asyncHandler(async (req, res) => {
+const refreshAccessToken = asyncHandler(async (req, res, next) => {
   const refreshToken = req.cookies.refreshToken;
   // console.log("refrsh token :- ", refreshToken);
 

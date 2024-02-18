@@ -1,4 +1,4 @@
-export type Error = {
+export type Errors = {
   username?: string;
   password?: string;
   confPassword?: string;
@@ -10,4 +10,10 @@ export type User = {
   username: string;
   refreshToken: string;
   avatar: string;
+};
+
+export type UserFields = {
+  username: string;
+  password: string;
+  confPassword?: string;
 };
