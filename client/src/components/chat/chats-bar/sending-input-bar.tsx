@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "../../reusable/button";
 import { NewMessage } from "../../../services/api";
 import { useConversation } from "../../../context/conversation-context";
-import { socket } from "../../../pages/chat-page";
+import socket from "../../../services/socket";
 
 const SendingInputBar = () => {
   const [messageText, setMessageText] = useState("");
@@ -20,6 +20,7 @@ const SendingInputBar = () => {
     const newMessage: NewMessage = {
       message: messageText, recipient: selectedConversation?._id, sender: currentUser?._id
     }
+
     socket.emit("message", newMessage);
     console.log("clicked");
 

@@ -28,6 +28,7 @@ const registerController = asyncHandler(async (req, res, next) => {
     username,
     password,
   });
+
   const accessToken = generateAccessToken(newUser);
   const refreshToken = generateRefreshToken(newUser);
 
@@ -69,14 +70,17 @@ const loginController = asyncHandler(async (req, res, next) => {
   if (!isPasswordCorrect) return next(new ApiError(400, "Password is wrong"));
 
   const accessToken = generateAccessToken(fetchedUser);
-  const refreshToken = fetchedUser.refreshToken;
+  const refreshToken = generateRefreshToken(fetchedUser);
 
-  const user = {
-    _id: fetchedUser._id,
-    username: fetchedUser.username,
-    avatar: fetchedUser.avatar,
-    refreshToken: fetchedUser.refreshToken,
-  };
+  const user = await User.findByIdAndUpdate(
+    fetchedUser._id,
+    {
+      $set: { refreshToken },
+    },
+    {
+      new: true,
+    }
+  ).select("username avatar refreshToken");
 
   return res
     .status(200)
@@ -98,8 +102,6 @@ const getAllUserController = asyncHandler(async (req, res, next) => {
     );
 
   const allUsers = await User.find().select("_id username");
-  // console.log("user :-", req.user);
-  // console.log("all users :- ", allUsers);
 
   if (allUsers.length === 0)
     return next(new ApiError(400, "No users found in db"));
@@ -112,7 +114,11 @@ const getAllUserController = asyncHandler(async (req, res, next) => {
   return res
     .status(202)
     .json(
-      new ApiResponse(202, filteredUsers, "All users fetched successfully")
+      new ApiResponse(
+        202,
+        { user: filteredUsers },
+        "All users fetched successfully"
+      )
     );
 });
 

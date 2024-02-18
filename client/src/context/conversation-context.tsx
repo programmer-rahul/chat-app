@@ -11,29 +11,22 @@ import { MessageType } from "../components/chat/chats-bar/conversation.js";
 type Conversation = {
   _id: string,
   username: string,
+  avatar?: '',
 }
-
 
 type ConversationContextType = {
   currentUser: User | null;
-  allConversations: Conversation[];
-  selectedConversation: Conversation | null;
+  allConversations: [] | [Conversation];
+  selectedConversation: null | Conversation;
   selectedConversationMessages: MessageType[] | [];
 
   setCurrentUser: Dispatch<SetStateAction<null | string>>;
-  setAllConversations: Dispatch<SetStateAction<never[]>>
+  setAllConversations: Dispatch<SetStateAction<User>>
   setSelectedConversation: Dispatch<SetStateAction<Conversation | null>>;
   setSelectedConversationMessages: Dispatch<SetStateAction<never[]>>
 };
 
-const ConversationContext = createContext<ConversationContextType>({
-  selectedConversation: null,
-  setSelectedConversation: () => { },
-  currentUser: {},
-  setCurrentUser: () => { },
-  // currentChatMessages: [],
-  // setCurrentChatMessages: () => { },
-});
+const ConversationContext = createContext<Partial<ConversationContextType>>({});
 
 export const ConversationProvider = ({
   children,
@@ -46,9 +39,7 @@ export const ConversationProvider = ({
   });
 
   const [allConversations, setAllConversations] = useState([]);
-
   const [selectedConversation, setSelectedConversation] = useState(null);
-
   const [selectedConversationMessages, setSelectedConversationMessages] = useState([]);
 
   return (

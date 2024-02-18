@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useConversation } from "../../../context/conversation-context";
 import Message from "../messages-bar/message";
 
@@ -11,14 +12,15 @@ export type MessageType = {
 
 const Conversation = () => {
   const { currentUser, selectedConversationMessages } = useConversation();
-  // console.log(selectedConversationMessages);
-  console.log(selectedConversationMessages);
+  const scrollToBtm = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    scrollToBtm.current?.scrollIntoView({ behavior: "smooth" })
+  }, [selectedConversationMessages]);
 
   return (
-    <div className="chats border-b flex flex-col justify-start gap-6 pr-2 h-[84%] overflow-y-scroll overflow-x-hidden no-scrollbar pb-6">
-      {selectedConversationMessages.map((message, index) => {
-        // console.log(message);
-
+    <div className="chats border-b flex flex-col justify-start gap-6 pr-2 h-[84%] overflow-x-hidden no-scrollbar pb-6">
+      {selectedConversationMessages?.map((message, index) => {
         return (
           <Message
             message={message}
@@ -27,6 +29,7 @@ const Conversation = () => {
           />
         );
       })}
+      <div ref={scrollToBtm} />
     </div>
   );
 };

@@ -72,6 +72,7 @@ type Data = {
   user: User,
   refreshToken?: string,
   accessToken?: string,
+  conversation?: [],
 }
 
 type Response = {

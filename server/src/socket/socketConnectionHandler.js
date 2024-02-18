@@ -47,7 +47,7 @@ const messageSocket = (socket, { message, recipient, sender }) => {
       .emit("recieve-message", { message, sender, recipient });
 
     storeMessageInDB({ message, recipient, sender });
-    console.log("Message sent to user in realtime");
+    console.log("Message sent to user in realtime and stored in DB");
   } else {
     console.log("Recipient is not online", recipient);
     storeMessageInDB({ message, recipient, sender });

@@ -3,31 +3,50 @@ import { useConversation } from "../../../context/conversation-context";
 import ChatTopBar from "./chat-top-bar";
 import Conversation from "./conversation";
 import SendingInputBar from "./sending-input-bar";
-import { getCurrentConversation } from "../../../services/api";
-import { socket } from "../../../pages/chat-page";
+import useAxios, { getCurrentConversation } from "../../../services/api";
+import socket from "../../../services/socket";
 
 const ChatsBar = () => {
   const { selectedConversation, currentUser, selectedConversationMessages, setSelectedConversationMessages } = useConversation();
+  const { response, fetchData } = useAxios();
+
+  // useEffect(() => {
+  //   // fetch conversation from db of selected conversation
+  //   if (selectedConversation) {
+  //     getCurrentConversation(currentUser?._id).then((data) => {
+  //       if (!data?.status) return console.log("Something wrong");
+  //       setSelectedConversationMessages(data.data);
+  //     });
+  //   }
+  // }, [selectedConversation]);
 
 
   useEffect(() => {
-    // fetch conversation from db of selected conversation
-    if (selectedConversation) {
-      getCurrentConversation(currentUser?._id).then((data) => {
-        if (!data?.status) return console.log("Something wrong");
-        setSelectedConversationMessages(data.data);
-      });
-    }
+    selectedConversation && fetchData({ url: `/message/get-conversation/${currentUser?._id}`, method: "get" })
   }, [selectedConversation]);
 
-  socket
-    .on('recieve-message', (data: {}) => {
-      console.log("Message Recieved :- ", data);
-      let tempMessages = [...selectedConversationMessages, data];
-      console.log(tempMessages)
+  useEffect(() => {
+    if (response) {
+      console.log(response);
+      if (response.status) {
+        response.data && setSelectedConversationMessages(response.data.conversation);
+      }
+      else {
+        console.log("Error in fetching conversations");
+      }
+    }
+  }, [response]);
 
-      setSelectedConversationMessages(tempMessages);
-    })
+  useEffect(() => {
+    socket
+      .on('recieve-message', (data: {}) => {
+        console.log("Message Recieved :- ", data);
+        let tempMessages = [...selectedConversationMessages, data];
+        console.log(tempMessages)
+
+        setSelectedConversationMessages(tempMessages);
+      })
+  }, []);
 
   return (
     <div className="h-full">

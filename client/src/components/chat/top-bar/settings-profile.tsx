@@ -1,22 +1,22 @@
+import { useEffect } from "react";
 import { useAuth } from "../../../context/auth-context";
 import useAxios from "../../../services/api";
 
 const Settings_Profile = () => {
-  const { fetchData } = useAxios();
   const { setIsAuth } = useAuth();
+  const { fetchData, response } = useAxios();
+
+  useEffect(() => {
+    if (response) {
+      if (response.status) {
+        response.data && localStorage.removeItem('user'); setIsAuth(false);
+      }
+    }
+  }, [response]);
 
   const logoutHandler = async () => {
-    console.log('clicked');
-
-    const data = await fetchData({ url: "/user/logout", method: "get", withCredentials: true });
-    console.log(data);
-
-    if (!data.status) return console.log("Error in logout");
-
-    localStorage.removeItem('user');
-    setIsAuth(false);
+    await fetchData({ url: "/user/logout", method: "get", withCredentials: true });
   }
-
 
   return (
     <div className="right-corner flex gap-4 items-center" onClick={logoutHandler}>
