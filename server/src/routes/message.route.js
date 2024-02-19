@@ -1,4 +1,5 @@
 import { Router } from "express";
+import verifyJWT from "../middlewares/verifyJWT.js";
 import {
   addMessageController,
   getConversationController,
@@ -8,6 +9,8 @@ const messageRoutes = Router();
 
 // protected
 messageRoutes.route("/add-message").post(addMessageController);
-messageRoutes.route("/get-conversation/:userid").get(getConversationController);
+messageRoutes
+  .route("/get-conversation/:userid")
+  .get(verifyJWT, getConversationController);
 
 export default messageRoutes;

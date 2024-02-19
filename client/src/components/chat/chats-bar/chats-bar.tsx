@@ -5,15 +5,13 @@ import Conversation, { MessageType } from "./conversation";
 import SendingInputBar from "./sending-input-bar";
 import useAxios from "../../../services/api";
 import socket from "../../../services/socket";
-import { useAuth } from "../../../context/auth-context";
 
 const ChatsBar = () => {
-  const { currentUser } = useAuth()
   const { selectedConversation, setSelectedConversationMessages, selectedConversationMessages } = useConversation();
   const { response, fetchData } = useAxios();
 
   useEffect(() => {
-    selectedConversation && fetchData({ url: `/message/get-conversation/${currentUser?._id}`, method: "get" })
+    selectedConversation && fetchData({ url: `/message/get-conversation/${selectedConversation._id}`, method: "get", withCredentials: true })
   }, [selectedConversation]);
 
   useEffect(() => {
