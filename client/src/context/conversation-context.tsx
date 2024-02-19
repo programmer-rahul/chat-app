@@ -5,55 +5,54 @@ import {
   useContext,
   useState,
 } from "react";
-import { User } from "../utils/local-storage.js";
 import { MessageType } from "../components/chat/chats-bar/conversation.js";
 
 type Conversation = {
   _id: string,
   username: string,
-  avatar?: '',
+  avatar?: string,
 }
 
 type ConversationContextType = {
-  currentUser: User | null;
-  allConversations: [] | [Conversation];
-  selectedConversation: null | Conversation;
-  selectedConversationMessages: MessageType[] | [];
+  allConversations: Conversation[];
+  selectedConversation: Conversation | null;
+  selectedConversationMessages: MessageType[];
 
-  setCurrentUser: Dispatch<SetStateAction<null | string>>;
-  setAllConversations: Dispatch<SetStateAction<User>>
+  setAllConversations: Dispatch<SetStateAction<Conversation[]>>
   setSelectedConversation: Dispatch<SetStateAction<Conversation | null>>;
-  setSelectedConversationMessages: Dispatch<SetStateAction<never[]>>
+  setSelectedConversationMessages: Dispatch<SetStateAction<MessageType[]>>
 };
 
-const ConversationContext = createContext<Partial<ConversationContextType>>({});
+const ConversationContext = createContext<ConversationContextType>({
+  allConversations: [],
+  selectedConversation: null,
+  selectedConversationMessages: [],
+
+  setAllConversations: () => { },
+  setSelectedConversation: () => { },
+  setSelectedConversationMessages: () => { },
+});
 
 export const ConversationProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [currentUser, setCurrentUser] = useState(() => {
-    const storedUser = localStorage.getItem("user");
-    return storedUser ? JSON.parse(storedUser) : null;
-  });
 
-  const [allConversations, setAllConversations] = useState([]);
-  const [selectedConversation, setSelectedConversation] = useState(null);
-  const [selectedConversationMessages, setSelectedConversationMessages] = useState([]);
+
+  const [allConversations, setAllConversations] = useState<Conversation[]>([]);
+  const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
+  const [selectedConversationMessages, setSelectedConversationMessages] = useState<MessageType[]>([]);
 
   return (
     <ConversationContext.Provider
       value={{
-        currentUser,
         allConversations,
         selectedConversation,
         selectedConversationMessages,
-        setCurrentUser,
         setAllConversations,
         setSelectedConversation,
         setSelectedConversationMessages
-
       }}
     >
       {children}

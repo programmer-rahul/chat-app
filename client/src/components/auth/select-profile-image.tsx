@@ -16,7 +16,8 @@ const SelectProfleImage = () => {
         if (response) {
             console.log(response);
             if (response.status) {
-                response.data && setUserInLocalStorage(response?.data.user); setIsAuth(true);
+                // console.log(response.data?.updatedImage);
+                response.data && setUserInLocalStorage(response.data.updatedImage); setIsAuth(true);
             }
             else {
                 setErrors(prev => { return { ...prev, apiError: response.message } });

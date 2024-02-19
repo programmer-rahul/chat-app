@@ -1,4 +1,4 @@
-import { User } from "../services/api";
+import { User } from "./types";
 
 export const getLocalStorageUser = () => {
   return localStorage.getItem("user");

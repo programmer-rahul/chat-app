@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import ChatsBar from "../components/chat/chats-bar/chats-bar";
 import MessagesBar from "../components/chat/messages-bar/messages-bar";
-import TopBar from "../components/chat/top-bar/top-bar";
-import { useConversation } from "../context/conversation-context";
+import Header from "../components/chat/top-bar/header";
 import socket from "../services/socket";
+import { useAuth } from "../context/auth-context";
 
 const ChatPage = () => {
-  const { currentUser } = useConversation();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -18,9 +18,9 @@ const ChatPage = () => {
   return (
     <main className="w-screen h-screen ">
       <div className="chat-main w-full p-2 h-full bg-background">
-        {/* top-bar  */}
-        <div className="topbar h-[6%] sm:h-[8%]">
-          <TopBar />
+        {/* header  */}
+        <div className="header h-[6%] sm:h-[8%]">
+          <Header />
         </div>
 
         {/* main  */}

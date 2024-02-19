@@ -101,7 +101,7 @@ const getAllUserController = asyncHandler(async (req, res, next) => {
       new ApiError(400, "User not found maybe error in verifing jwt")
     );
 
-  const allUsers = await User.find().select("_id username");
+  const allUsers = await User.find().select("_id username avatar");
 
   if (allUsers.length === 0)
     return next(new ApiError(400, "No users found in db"));
@@ -127,16 +127,24 @@ const updateProfileImage = asyncHandler(async (req, res, next) => {
 
   if (!req?.file) return next(new ApiError(400, "Images not available"));
 
-  const updatedImage = await User.findByIdAndUpdate(req?.user?._id, {
-    $set: { avatar: req?.file?.path },
-  }).select("avatar refreshToken username");
+  const updatedImage = await User.findByIdAndUpdate(
+    req?.user?._id,
+    {
+      $set: { avatar: req?.file?.filename },
+    },
+    { new: true }
+  ).select("avatar refreshToken username");
 
   if (!updatedImage) return next(new ApiError(400, "User is not found"));
 
   return res
     .status(202)
     .json(
-      new ApiResponse(202, updatedImage, "Profile image updated successfully")
+      new ApiResponse(
+        202,
+        { updatedImage },
+        "Profile image updated successfully"
+      )
     );
 });
 

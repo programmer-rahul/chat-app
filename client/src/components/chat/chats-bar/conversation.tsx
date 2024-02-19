@@ -1,17 +1,19 @@
 import { useEffect, useRef } from "react";
 import { useConversation } from "../../../context/conversation-context";
 import Message from "../messages-bar/message";
+import { useAuth } from "../../../context/auth-context";
 
 export type MessageType = {
   _id?: string;
   message: string;
-  recipient: string;
-  sender: string;
+  recipient: string | undefined;
+  sender: string | undefined;
   createAt?: string;
 };
 
 const Conversation = () => {
-  const { currentUser, selectedConversationMessages } = useConversation();
+  const { selectedConversationMessages } = useConversation();
+  const { currentUser } = useAuth();
   const scrollToBtm = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

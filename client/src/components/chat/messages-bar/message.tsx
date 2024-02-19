@@ -1,3 +1,5 @@
+import { useAuth } from "../../../context/auth-context";
+import { useConversation } from "../../../context/conversation-context";
 import { MessageType } from "../chats-bar/conversation";
 import ProfileIcon from "../reusable/profile-icon";
 
@@ -7,6 +9,7 @@ type MessageProps = {
 };
 
 const Message = ({ isCurrentUser, message }: MessageProps) => {
+
   return (
     <div
       className={`message flex gap-2 items-end ${isCurrentUser ? "justify-end" : "justify-start"
@@ -15,11 +18,11 @@ const Message = ({ isCurrentUser, message }: MessageProps) => {
       {isCurrentUser ? (
         <>
           <MessageSide isCurrentUser={isCurrentUser} message={message} />
-          <ProfileSide />
+          <ProfileSide isCurrentUser={isCurrentUser} />
         </>
       ) : (
         <>
-          <ProfileSide />
+          <ProfileSide isCurrentUser={isCurrentUser} />
           <MessageSide isCurrentUser={isCurrentUser} message={message} />
         </>
       )}
@@ -48,10 +51,12 @@ const MessageSide = ({ isCurrentUser, message }: Partial<MessageProps>) => {
     </div>
   );
 };
-const ProfileSide = () => (
-  <div className="right">
-    <ProfileIcon />
+const ProfileSide = ({ isCurrentUser }: Partial<MessageProps>) => {
+  const { currentUser } = useAuth();
+  const { selectedConversation } = useConversation();
+  return <div className="right">
+    <ProfileIcon isPrimary={false} src={isCurrentUser ? currentUser?.avatar : selectedConversation?.avatar} username={selectedConversation?.username} />
   </div>
-);
+}
 
 export default Message;

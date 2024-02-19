@@ -8,71 +8,18 @@ const axiosInstance = axios.create({
   baseURL: BASE_URL,
 });
 
-export const getAllUsers = async () => {
-  try {
-    const response = await axiosInstance("/user/all-users", {
-      method: "get",
-      withCredentials: true,
-    });
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 export type NewMessage = {
   message: string;
   sender: string | undefined;
   recipient: string | undefined;
 };
 
-export const sendMessage = async (data: NewMessage) => {
-  try {
-    const response = await axiosInstance.post("/message/add-message", data, {
-      withCredentials: true,
-    });
-    console.log(response);
-    return response.data;
-  } catch (err) {
-    console.log("Error");
-  }
-};
-
-export const getCurrentConversation = async (_id: string | undefined) => {
-  try {
-    const response = await axiosInstance.get(`/message/get-conversation/${_id}`, {
-      withCredentials: true,
-    });
-    // console.log(response);
-    return response.data;
-  } catch (err) {
-    console.log("Error");
-  }
-};
-
-export const updateProfileImage = async (profile) => {
-  try {
-    const response = await axiosInstance.put("/user/update-profile", profile, {
-      withCredentials: true,
-    });
-    console.log(response);
-    return response.data;
-  } catch (err) {
-    console.log("Error", err);
-  }
-};
-
-
-
-
-
-
-// from there
 type Data = {
   user: User,
   refreshToken?: string,
   accessToken?: string,
   conversation?: [],
+  updatedImage?: {},
 }
 
 type Response = {

@@ -3,10 +3,13 @@ import Button from "../../reusable/button";
 import { NewMessage } from "../../../services/api";
 import { useConversation } from "../../../context/conversation-context";
 import socket from "../../../services/socket";
+import { useAuth } from "../../../context/auth-context";
+import { MessageType } from "./conversation";
 
 const SendingInputBar = () => {
   const [messageText, setMessageText] = useState("");
-  const { currentUser, selectedConversation, setSelectedConversationMessages, selectedConversationMessages } = useConversation();
+  const { selectedConversation, setSelectedConversationMessages, selectedConversationMessages } = useConversation();
+  const { currentUser } = useAuth();
 
 
   const btnHandler = async () => {
@@ -17,16 +20,15 @@ const SendingInputBar = () => {
     }
 
     // now sending message to socket connection
-    const newMessage: NewMessage = {
-      message: messageText, recipient: selectedConversation?._id, sender: currentUser?._id
+    const newMessage: MessageType = {
+      message: messageText,
+      recipient: selectedConversation?._id,
+      sender: currentUser?._id
     }
 
     socket.emit("message", newMessage);
-    console.log("clicked");
 
-    let temp = [...selectedConversationMessages, newMessage];
-    console.log(temp);
-    setSelectedConversationMessages(temp);
+    setSelectedConversationMessages([...selectedConversationMessages, newMessage]);
     setMessageText("");
   };
 

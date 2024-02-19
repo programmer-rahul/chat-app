@@ -1,17 +1,17 @@
 import AppLogo from "./app-logo";
 import SearchInput from "./search-input";
-import Settings_Profile from "./settings-profile";
+import SettingsProfile from "./settings-profile";
 
-const TopBar = () => {
+const Header = () => {
   return (
     <div className="flex h-full">
       <div className="flex items-center justify-between border-b w-full text-primaryText">
         <AppLogo />
         <SearchInput />
-        <Settings_Profile />
+        <SettingsProfile />
       </div>
     </div>
   );
 };
 
-export default TopBar;
+export default Header;

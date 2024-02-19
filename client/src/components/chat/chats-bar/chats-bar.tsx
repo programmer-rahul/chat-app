@@ -1,25 +1,16 @@
 import { useEffect } from "react";
 import { useConversation } from "../../../context/conversation-context";
 import ChatTopBar from "./chat-top-bar";
-import Conversation from "./conversation";
+import Conversation, { MessageType } from "./conversation";
 import SendingInputBar from "./sending-input-bar";
-import useAxios, { getCurrentConversation } from "../../../services/api";
+import useAxios from "../../../services/api";
 import socket from "../../../services/socket";
+import { useAuth } from "../../../context/auth-context";
 
 const ChatsBar = () => {
-  const { selectedConversation, currentUser, selectedConversationMessages, setSelectedConversationMessages } = useConversation();
+  const { currentUser } = useAuth()
+  const { selectedConversation, setSelectedConversationMessages, selectedConversationMessages } = useConversation();
   const { response, fetchData } = useAxios();
-
-  // useEffect(() => {
-  //   // fetch conversation from db of selected conversation
-  //   if (selectedConversation) {
-  //     getCurrentConversation(currentUser?._id).then((data) => {
-  //       if (!data?.status) return console.log("Something wrong");
-  //       setSelectedConversationMessages(data.data);
-  //     });
-  //   }
-  // }, [selectedConversation]);
-
 
   useEffect(() => {
     selectedConversation && fetchData({ url: `/message/get-conversation/${currentUser?._id}`, method: "get" })
@@ -37,16 +28,11 @@ const ChatsBar = () => {
     }
   }, [response]);
 
-  useEffect(() => {
-    socket
-      .on('recieve-message', (data: {}) => {
-        console.log("Message Recieved :- ", data);
-        let tempMessages = [...selectedConversationMessages, data];
-        console.log(tempMessages)
-
-        setSelectedConversationMessages(tempMessages);
-      })
-  }, []);
+  socket
+    .on('recieve-message', (data: MessageType) => {
+      console.log("Message Recieved :- ", data);
+      setSelectedConversationMessages([...selectedConversationMessages, data]);
+    })
 
   return (
     <div className="h-full">

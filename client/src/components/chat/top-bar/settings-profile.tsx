@@ -1,15 +1,16 @@
 import { useEffect } from "react";
 import { useAuth } from "../../../context/auth-context";
 import useAxios from "../../../services/api";
+import ProfileIcon from "../reusable/profile-icon";
 
-const Settings_Profile = () => {
-  const { setIsAuth } = useAuth();
+const SettingsProfile = () => {
+  const { setIsAuth, setCurrentUser, currentUser } = useAuth();
   const { fetchData, response } = useAxios();
 
   useEffect(() => {
     if (response) {
       if (response.status) {
-        response.data && localStorage.removeItem('user'); setIsAuth(false);
+        response.data && localStorage.removeItem('user'); setIsAuth(false); setCurrentUser(null);
       }
     }
   }, [response]);
@@ -24,14 +25,9 @@ const Settings_Profile = () => {
         {/* TODO : Setting icon  */}
         <h1>S</h1>
       </div>
-      <div className="profile w-10 h-10 rounded-full grid place-items-center">
-        <img
-          src="profile.png"
-          alt="profile.svg"
-          className="rounded-full h-full w-full object-cover"
-        />
-      </div>
+
+      <ProfileIcon isPrimary={true} src={currentUser?.avatar} username={currentUser?.username} />
     </div>
   );
 };
-export default Settings_Profile;
+export default SettingsProfile;
