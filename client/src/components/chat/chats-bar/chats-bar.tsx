@@ -32,6 +32,7 @@ const ChatsBar = () => {
       setSelectedConversationMessages([...selectedConversationMessages, data]);
     })
 
+
   return (
     <div className="h-full">
       {selectedConversation ? (

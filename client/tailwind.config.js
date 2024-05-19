@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         background: "var(--background)",
+        secondaryBackground: "var(--background-secondary)",
 
         primaryMessage: "var(--primary-message)",
         secondaryMessage: "var(--secondary-message)",
@@ -22,6 +23,10 @@ export default {
 
         SecondaryBtn: "var(--secondary-btn)",
         SecondaryBtnText: "var(--secondary-btn-text)",
+      },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+        nunito: ["Nunito", "sans-serif"],
       },
     },
   },

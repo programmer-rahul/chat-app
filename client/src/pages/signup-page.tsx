@@ -10,6 +10,7 @@ const SignUpPage = () => {
       <div className="bg-secondaryMessage flex items-center justify-center h-full">
         {
           isSignUpFormCompleted ? <SelectProfleImage /> : <SignUpForm setCompleted={setIsSignUpFormCompleted} />
+          // <SelectProfleImage/>
         }
       </div>
     </div>

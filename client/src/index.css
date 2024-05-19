@@ -1,26 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #28292d;
+  --background: #0f172a;
+  --background-secondary: #212833;
 
   --primary-message: #0089fc;
   --secondary-message: #383b40;
 
-  --primary-text: #d4d1ce;
-  --secondary-text: #505153;
+  --primary-text: #e2e8f0e7;
+  --secondary-text: #52525bde;
 
   --border: #948c8c;
 
   --input: transparent;
   --input-text: rgb(189, 189, 189);
 
-  --primary-btn: #383b40;
+  --primary-btn: #65a30d;
   --primary-btn-text: #d4d1ce;
 
   --secondary-btn: #0089fc;
   --secondary-btn-text: rgb(189, 189, 189);
+
+  --gradient-text: red;
 }
 
 html,
@@ -28,7 +35,6 @@ body {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  font-family: "Input Mono";
   width: full;
   height: full;
   overflow: hidden;
@@ -40,7 +46,12 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-
-div {
-  /* border: 1px solid red; */
+.get-started {
+  background: linear-gradient(30deg, #751386, #5b7fb2);
+}
+.text-gradient {
+  background: #121fcf;
+  background: linear-gradient(to right, #121fcf 0%, #6ccf56 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import MessagedUser from "./messaged-user";
 import useAxios from "../../../services/api";
 import { useConversation } from "../../../context/conversation-context";
+import socket from "../../../services/socket";
+import { connect } from "socket.io-client";
 
 const MessagesBar = () => {
   const { allConversations, setAllConversations } = useConversation();

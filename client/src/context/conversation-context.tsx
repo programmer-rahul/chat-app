@@ -11,6 +11,7 @@ type Conversation = {
   _id: string,
   username: string,
   avatar?: string,
+  isOnline?: boolean,
 }
 
 type ConversationContextType = {

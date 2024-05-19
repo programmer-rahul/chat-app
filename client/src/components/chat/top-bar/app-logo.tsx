@@ -1,7 +1,10 @@
 const AppLogo = () => {
   return (
-    <div className="logo font-semibold text-primaryText text-xl md:text-2xl">
-      <h1>Chat Io</h1>
+    <div className="logo font-semibold font-poppins text-primaryText">
+      <h1>
+        <span className="text-3xl">Welcome to </span>
+        <span className="text-4xl font-bold text-gradient">ChatCircle</span>
+      </h1>
     </div>
   );
 };

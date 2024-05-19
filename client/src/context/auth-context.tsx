@@ -1,4 +1,11 @@
-import { Dispatch, SetStateAction, createContext, useContext, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { User } from "../utils/types";
 
 type AuthContextType = {
@@ -13,17 +20,18 @@ const AuthContext = createContext<AuthContextType>({
   isAuth: false,
   currentUser: null,
 
-  setIsAuth: () => { },
-  setCurrentUser: () => { },
+  setIsAuth: () => {},
+  setCurrentUser: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [isAuth, setIsAuth] = useState(localStorage.getItem('user') ? true : false);
+  // const [isAuth, setIsAuth] = useState(localStorage.getItem('user') ? true : false);
+  const [isAuth, setIsAuth] = useState(false);
 
   const changeUser = () => {
-    const storedUser = localStorage.getItem('user');
-    return storedUser ? JSON.parse(storedUser) : null
-  }
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  };
   const [currentUser, setCurrentUser] = useState(changeUser);
 
   useEffect(() => {
@@ -31,7 +39,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [isAuth]);
 
   return (
-    <AuthContext.Provider value={{ isAuth, setIsAuth, currentUser, setCurrentUser }}>
+    <AuthContext.Provider
+      value={{ isAuth, setIsAuth, currentUser, setCurrentUser }}
+    >
       {children}
     </AuthContext.Provider>
   );
