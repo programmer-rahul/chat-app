@@ -48,12 +48,11 @@ const LoginForm = () => {
 
   return (
     <div className="w-full h-full">
-      <div className="flex flex-col gap-4 h-full ">
-        <div className="flex flex-col h-[60%]">
-          <div className="space-y-2 h-[40%] ">
+      <div className="flex flex-col gap-4 h-full">
+        <div className="flex flex-col gap-8 h-[60%]">
+          <div>
             <Label text="Username" />
             <Input
-              placeholder="Enter your username"
               value={userFields.username}
               onChange={(e) =>
                 setUserFields((prev) => {
@@ -68,7 +67,6 @@ const LoginForm = () => {
           <div className="space-y-2 h-[40%]">
             <Label text="Password" htmlFor="password" />
             <Input
-              placeholder="Enter your password"
               type="password"
               value={userFields.password}
               onChange={(e) =>
@@ -83,19 +81,23 @@ const LoginForm = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <div className="text-sm text-secondaryText text-center">
-            <span>Don't have any account!,</span>
-            <span className="text-primaryText font-semibold text-base cursor-pointer">
-              <Link to="/signup">Sign up</Link>
-            </span>
-          </div>
+        <div className="flex flex-col gap-6">
           <Button
-            type="secondary"
+            type="primary"
             btnType="submit"
+            size="xl"
             text="login"
             handleClick={submitHandler}
           />
+          <Link
+            to="/signup"
+            className="text-secondaryText text-lg sm:text-base"
+          >
+            <span>Don't have any account create one? </span>
+            <span className="text-primaryText font-semibold font-poppins text-xl md:text-lg cursor-pointer">
+              Sign up
+            </span>
+          </Link>
         </div>
       </div>
     </div>
