@@ -47,7 +47,7 @@ body {
   display: none;
 }
 .get-started {
-  background: linear-gradient(30deg, #751386, #5b7fb2);
+  /* background: linear-gradient(30deg, #751386, #5b7fb2); */
 }
 .text-gradient {
   background: #121fcf;

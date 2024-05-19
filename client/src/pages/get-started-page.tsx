@@ -6,18 +6,18 @@ const GetStartedPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="get-starte w-full h-screen bg-secondaryBackground font-nunito">
+    <div className="get-started w-full h-screen bg-secondaryBackground font-nunito">
       <div className="flex items-center justify-center h-full">
-        <div className="bg-background shadow-2xl rounded-xl px-12 py-10 flex gap-10 flex-col w-[600px] h-4/5 justify-around">
+        <div className="bg-background shadow-2xl rounded-xl px-12 py-10 flex gap-10 flex-col w-[600px] h-4/5 justify-around sm:w-4/5 sm:px-6 sm:py-4 sm:gap-6">
           {/* heading  */}
-          <div className="pb-8 self-center">
+          <div className="pb-8 self-center sm:pb-6">
             <AppLogo />
           </div>
 
           {/* tagline */}
-          <div className="text-2xl relative w-full text-center text-primaryText self-center">
-            <hr className="absolute left-1/2 top-1/2 border-[3px] border-border w-full -translate-x-1/2 -translate-y-1/2 z-10" />
-            <p className="relative z-20 bg-background inline-block px-2">
+          <div className="text-2xl sm:text-2xl relative w-full text-center text-primaryText self-center flex flex-col items-center">
+            <hr className="absolute left-1/2 top-1/2 border-[3px] border-border w-full -translate-x-1/2 -translate-y-1/2 rounded-sm" />
+            <p className="relative z- bg-background inline-block px-2 sm:text-xl">
               Connect, Communicate, Chat
             </p>
           </div>

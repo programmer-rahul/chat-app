@@ -27,7 +27,7 @@ const buttonSize = {
     btnSize: " text-xl ",
   },
   "2xl": {
-    btnSize: " text-2xl py-2 ",
+    btnSize: " text-2xl py-2 sm:text-xl ",
   },
 };
 
