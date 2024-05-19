@@ -4,25 +4,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        secondaryBackground: "var(--background-secondary)",
+        background: "rgba(var(--background))",
+        secondaryBackground: "rgba(var(--background-secondary))",
 
-        primaryMessage: "var(--primary-message)",
-        secondaryMessage: "var(--secondary-message)",
+        primaryMessage: "rgba(var(--primary-message))",
+        secondaryMessage: "rgba(var(--secondary-message))",
 
-        primaryText: "var(--primary-text)",
-        secondaryText: "var(--secondary-text)",
+        primaryText: "rgba(var(--primary-text))",
+        secondaryText: "rgba(var(--secondary-text))",
 
-        border: "var(--border)",
+        border: "rgba(var(--border))",
 
-        input: "var(--input)",
-        inputText: "var(--input-text)",
+        input: "rgba(var(--input))",
+        inputText: "rgba(var(--input-text))",
 
-        primaryBtn: "var(--primary-btn)",
-        primaryBtnText: "var(--primary-btn-text)",
+        primaryBtn: "rgba(var(--primary-btn))",
+        primaryBtnText: "rgba(var(--primary-btn-text))",
 
-        SecondaryBtn: "var(--secondary-btn)",
-        SecondaryBtnText: "var(--secondary-btn-text)",
+        SecondaryBtn: "rgba(var(--secondary-btn))",
+        SecondaryBtnText: "rgba(var(--secondary-btn-text))",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

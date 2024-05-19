@@ -29,9 +29,6 @@ export const getConversationController = asyncHandler(
     const { userid } = req.params;
     const _id = req.user._id;
 
-    console.log(typeof userid);
-    console.log(typeof _id);
-
     // check that id's are valid or not
     if (
       !mongoose.Types.ObjectId.isValid(userid) ||
@@ -46,7 +43,6 @@ export const getConversationController = asyncHandler(
         { sender: userid, recipient: _id },
       ],
     });
-    console.log(conversation);
 
     if (!conversation)
       return next(new ApiError(400, "Error in getting conversation from db"));

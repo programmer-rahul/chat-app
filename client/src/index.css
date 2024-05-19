@@ -7,27 +7,27 @@
 @tailwind utilities;
 
 :root {
-  --background: #0f172a;
-  --background-secondary: #212833;
+  --background: 15, 23, 42;
+  --background-secondary: 33, 40, 51;
 
-  --primary-message: #0089fc;
-  --secondary-message: #383b40;
+  --primary-message: 0, 137, 252;
+  --secondary-message: 56, 59, 64;
 
-  --primary-text: #e2e8f0e7;
-  --secondary-text: #52525bde;
+  --primary-text: 226, 232, 240, 0.906;
+  --secondary-text: 82, 82, 91, 0.871;
 
   --border: #948c8c;
 
   --input: transparent;
-  --input-text: rgb(189, 189, 189);
+  --input-text: 189, 189, 189;
 
-  --primary-btn: #65a30d;
-  --primary-btn-text: #d4d1ce;
+  --primary-btn: 101, 163, 13;
+  --primary-btn-text: 212, 209, 206;
 
-  --secondary-btn: #0089fc;
-  --secondary-btn-text: rgb(189, 189, 189);
+  --secondary-btn: 0, 137, 252;
+  --secondary-btn-text: 189, 189, 189;
 
-  --gradient-text: red;
+  --gradient-text: 255, 0, 0;
 }
 
 html,

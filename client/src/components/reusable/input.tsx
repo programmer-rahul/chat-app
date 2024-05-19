@@ -9,7 +9,7 @@ type InputProps = {
 
 const Input = ({
   type = "text",
-  placeholder = "Type here",
+  placeholder = "",
   value = "",
   onChange = () => {},
 }: InputProps) => {
@@ -19,7 +19,7 @@ const Input = ({
       name={type}
       value={value}
       onChange={onChange}
-      className=" bg-primaryBtn text-primaryText outline-none rounded-md p-2 w-full"
+      className="py-2 px-0 w-full border-b-2 border-primaryBtn/70 text-primaryText bg-transparent outline-none"
       placeholder={placeholder}
     />
   );

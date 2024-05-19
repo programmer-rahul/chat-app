@@ -7,14 +7,14 @@ const SignUpPage = () => {
 
   return (
     <div className="Signup w-full h-screen">
-      <div className="bg-secondaryMessage flex items-center justify-center h-full">
-        {
-          isSignUpFormCompleted ? <SelectProfleImage /> : <SignUpForm setCompleted={setIsSignUpFormCompleted} />
-          // <SelectProfleImage/>
-        }
+      <div className="bg-secondaryBackground flex items-center justify-center h-full">
+        {!isSignUpFormCompleted ? (
+          <SignUpForm setCompleted={setIsSignUpFormCompleted} />
+        ) : (
+          <SelectProfleImage />
+        )}
       </div>
     </div>
   );
 };
 export default SignUpPage;
-

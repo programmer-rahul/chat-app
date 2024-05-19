@@ -6,7 +6,7 @@ type LabelProps = {
 
 const Label = ({ text, styles = "", htmlFor = "text" }: LabelProps) => {
   return (
-    <label htmlFor={htmlFor} className={`text-primaryText text-xl ${styles}`}>
+    <label htmlFor={htmlFor} className={`text-inputText text-xl ${styles}`}>
       {text}
     </label>
   );
