@@ -52,7 +52,8 @@ const useAxios = () => {
       setResponse(response.data)
       return response.data;
     }
-    catch (error: AxiosError) {
+    // here Catch clause variable type annotation must be 'any' or 'unknown' if specified
+    catch (error: any) {
       setResponse({
         data: null,
         status: false,

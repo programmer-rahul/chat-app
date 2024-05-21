@@ -4,15 +4,11 @@ import { cn } from '../../utils/cn';
 
 type InputTypesProps = InputHTMLAttributes<HTMLInputElement> & {
     variant?: "standard" | "outlined";
-    type?: "text" | "password" | "email";
-    placeholder?: string
     className?: string;
 
-    value?: string | number;
-    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ type, variant, value, onChange, className, placeholder, ...props }: InputTypesProps) => {
+const Input = ({ variant, className, ...props }: InputTypesProps) => {
     return <input {...props} className={cn(inputVariants({ variant }), className, "")} />
 }
 

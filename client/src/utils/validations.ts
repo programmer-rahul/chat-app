@@ -11,7 +11,6 @@ export const formValidations = ({ userFields, setErrors }: FormValidations) => {
 
     if (username?.trim() === "") {
         errors.username = "Username is Required"
-        console.log("yes")
     }
     if (password?.length < 6) {
         errors.password = "Password should be 6 character long"

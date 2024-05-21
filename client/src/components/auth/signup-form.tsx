@@ -36,6 +36,9 @@ const SignUpForm = ({
   }, [response]);
 
   const submitHandler = async () => {
+
+    console.log('submit', userFields)
+
     if (!formValidations({ userFields, setErrors }))
       return console.log("Validation Failed!");
     await fetchData({
@@ -59,10 +62,13 @@ const SignUpForm = ({
               <Label text="Username" />
               <Input
                 value={userFields.username}
-                onChange={(e) =>
+                onChange={(e) => {
+                  console.log('chaging')
+
                   setUserFields((prev) => {
                     return { ...prev, username: e.target.value };
                   })
+                }
                 }
               />
               {errors?.username && (
