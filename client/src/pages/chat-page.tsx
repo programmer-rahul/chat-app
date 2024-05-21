@@ -5,42 +5,37 @@ import Header from "../components/chat/top-bar/header";
 import socket from "../services/socket";
 import { useAuth } from "../context/auth-context";
 import { useConversation } from "../context/conversation-context";
-import { all } from "axios";
 
 const ChatPage = () => {
   const { currentUser } = useAuth();
 
   const { allConversations } = useConversation();
 
-
   useEffect(() => {
     // console.log('changed');
     if (allConversations?.length > 0) {
       socket.emit("check-status", allConversations);
-      socket.on('online-users', (data) => {
-
-        console.log(allConversations)
+      socket.on("online-users", (data) => {
+        console.log(allConversations);
         // console.log('online users', data);
         const onlineUsers = data.forEach((user, index) => {
-          console.log(user)
+          console.log(user);
         });
         console.log("online", onlineUsers);
-
-      })
+      });
     }
   }, [allConversations]);
-
 
   useEffect(() => {
     const mainFunc = () => {
       console.log("Connected To Server :)");
-      socket.emit('login', currentUser?._id);
-    }
+      socket.emit("login", currentUser?._id);
+    };
     socket.on("connect", mainFunc);
   }, []);
 
   return (
-    <main className="w-screen h-screen ">
+    <main className="w-screen h-screen">
       <div className="chat-main w-full p-2 h-full bg-background">
         {/* header  */}
         <div className="header h-[6%] sm:h-[8%]">

@@ -10,8 +10,11 @@ const GetStartedPage = () => {
       <div className="flex items-center justify-center h-full">
         <div className="bg-background shadow-2xl rounded-xl px-12 py-10 flex gap-10 flex-col w-[600px] h-4/5 justify-around sm:w-4/5 sm:px-6 sm:py-4 sm:gap-6">
           {/* heading  */}
-          <div className="pb-8 self-center sm:pb-6">
-            <AppLogo />
+          <div className="logo font-semibold font-poppins text-primaryText pb-8 self-center sm:pb-6">
+            <h1>
+              <span className="text-3xl">Welcome to </span>
+              <AppLogo />
+            </h1>
           </div>
 
           {/* tagline */}
