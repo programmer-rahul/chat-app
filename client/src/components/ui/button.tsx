@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority';
 import { cn } from "../../utils/cn";
 
 type ButtonPropsType = ButtonHTMLAttributes<HTMLButtonElement> & {
-    variant?: "primary" | "secondary"
+    variant?: "primary" | "secondary" | "disabled"
     className?: string
 }
 
@@ -21,6 +21,7 @@ const buttonVariants = cva(
             variant: {
                 primary: "bg-sky-700 text-slate-200 border border-transparent hover:opacity-70",
                 secondary: "bg-transparent text-sky-700 border border-slate-200 hover:border-sky-700",
+                disabled: "bg-gray-500 cursor-not-allowed"
             }
         }
         ,

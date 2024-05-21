@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../context/auth-context";
 import { useNavigate } from "react-router-dom";
 import useAxios, { updateProfileImage } from "../../services/api";
-import Button from "../reusable/button";
+import Button from "../ui/button";
 import { setUserInLocalStorage } from "../../utils/local-storage";
 
 const SelectProfleImage = () => {
@@ -32,6 +32,7 @@ const SelectProfleImage = () => {
     }
 
     const continueBtnHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+        console.log('first')
         e.preventDefault();
         if (selectedImage === null) return
         const formData = new FormData();
@@ -56,8 +57,14 @@ const SelectProfleImage = () => {
                 </div>
             </div>
             <div className="flex w-full justify-between flex-col gap-8 md:gap-0 md:flex-row">
-                <Button type="primary" text="skip" handleClick={skipBtnHandler} size="2xl" />
-                <Button type={`${selectedImage ? "secondary" : "primary"}`} btnType="submit" text="continue" size="2xl" />
+
+                <Button onClick={skipBtnHandler} variant="secondary">Skip</Button>
+                <Button
+                    variant={!selectedImage ? 'disabled' : "primary"}
+                    type="submit"
+                    disabled={!selectedImage}
+                >Continue</Button>
+
             </div>
         </form >
     )

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "../../reusable/button";
+import Button from "../../ui/button";
 import { NewMessage } from "../../../services/api";
 import { useConversation } from "../../../context/conversation-context";
 import socket from "../../../services/socket";

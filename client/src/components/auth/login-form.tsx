@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Input from "../reusable/input";
+import Input from "../ui/input";
 import Label from "../reusable/label";
 import { Link } from "react-router-dom";
 import useAxios from "../../services/api";
@@ -50,7 +50,7 @@ const LoginForm = () => {
     <div className="w-full h-full">
       <div className="flex flex-col gap-4 h-full">
         <div className="flex flex-col gap-8 h-[60%]">
-          <div>
+          <div className="flex flex-col">
             <Label text="Username" />
             <Input
               value={userFields.username}
@@ -61,10 +61,10 @@ const LoginForm = () => {
               }
             />
             {errors?.username && (
-              <p className="text-red-600">{errors.username}</p>
+              <p className="text-rose-600">{errors.username}</p>
             )}
           </div>
-          <div className="space-y-2 h-[40%]">
+          <div className="flex flex-col">
             <Label text="Password" htmlFor="password" />
             <Input
               type="password"
@@ -76,7 +76,7 @@ const LoginForm = () => {
               }
             />
             {errors?.password && (
-              <p className="text-red-600">{errors.password}</p>
+              <p className="text-rose-600">{errors.password}</p>
             )}
           </div>
         </div>
