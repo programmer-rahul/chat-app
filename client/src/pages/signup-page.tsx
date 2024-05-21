@@ -9,9 +9,9 @@ const SignUpPage = () => {
     <div className="Signup w-full h-screen">
       <div className="bg-secondaryBackground flex items-center justify-center h-full">
         {!isSignUpFormCompleted ? (
-          <SignUpForm setCompleted={setIsSignUpFormCompleted} />
-        ) : (
           <SelectProfleImage />
+        ) : (
+          <SignUpForm setCompleted={setIsSignUpFormCompleted} />
         )}
       </div>
     </div>

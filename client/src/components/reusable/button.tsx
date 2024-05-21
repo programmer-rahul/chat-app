@@ -27,7 +27,7 @@ const buttonSize = {
     btnSize: " text-xl ",
   },
   "2xl": {
-    btnSize: " text-2xl py-2 sm:text-xl ",
+    btnSize: "text-2xl py-2",
   },
 };
 
@@ -37,7 +37,7 @@ const Button = ({
   size = "base",
   btnType = "button",
   text = "send",
-  handleClick = () => {},
+  handleClick = () => { },
 }: ButtonProps) => {
   const { button } = buttonStyles[type];
   const { btnSize } = buttonSize[size];

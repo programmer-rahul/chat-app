@@ -45,7 +45,7 @@ const SelectProfleImage = () => {
     }
 
     return (
-        <form onSubmit={continueBtnHandler} className="container bg-background shadow-2xl rounded-xl p-8 py-16 flex gap-16 flex-col items-start  w-[600px] h-4/5">
+        <form onSubmit={continueBtnHandler} className="container bg-background shadow-2xl rounded-xl p-8 py-16 flex gap-16 flex-col items-start sm:w-[600px] h-4/5 w-4/5">
             <h2 className="text-center text-2xl font-semibold text-primaryText self-center">Select profile image</h2>
             <div className="self-center">
                 <div className="select-profile border w-40 h-40 rounded-full cursor-pointer bg-secondaryMessage relative">
@@ -55,9 +55,9 @@ const SelectProfleImage = () => {
                     <input type="file" accept="image/png" className="w-full h-full border rounded-full cursor-pointer absolute top-0 left-0" onChange={inputChangeHandler} />
                 </div>
             </div>
-            <div className="flex border w-full justify-between">
-                <Button type="primary" text="skip" handleClick={skipBtnHandler} />
-                <Button type={`${selectedImage ? "secondary" : "primary"}`} btnType="submit" text="continue" />
+            <div className="flex w-full justify-between flex-col gap-8 md:gap-0 md:flex-row">
+                <Button type="primary" text="skip" handleClick={skipBtnHandler} size="2xl" />
+                <Button type={`${selectedImage ? "secondary" : "primary"}`} btnType="submit" text="continue" size="2xl" />
             </div>
         </form >
     )

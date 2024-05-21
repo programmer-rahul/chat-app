@@ -25,8 +25,8 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  // const [isAuth, setIsAuth] = useState(localStorage.getItem('user') ? true : false);
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(localStorage.getItem('user') ? true : false);
+  // const [isAuth, setIsAuth] = useState(true);
 
   const changeUser = () => {
     const storedUser = localStorage.getItem("user");

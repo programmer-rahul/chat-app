@@ -47,9 +47,9 @@ const SignUpForm = ({
   };
 
   return (
-    <div className="bg-background shadow-2xl rounded-xl p-8 py-16 flex gap-16 flex-col items-start w-[600px] h-4/5 sm:w-4/5">
+    <div className="bg-background shadow-2xl rounded-xl p-8 py-16 flex gap-16 flex-col items-start sm:w-[600px] h-4/5 w-4/5">
       <div className="w-full h-full">
-        <div className="flex flex-col gap-4 h-full ">
+        <div className="flex flex-col gap-4 h-full">
           <h2 className="text-primaryText font-semibold text-4xl pb-8">
             Signup
           </h2>

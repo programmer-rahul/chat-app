@@ -91,10 +91,10 @@ const LoginForm = () => {
           />
           <Link
             to="/signup"
-            className="text-secondaryText text-lg sm:text-base"
+            className="text-secondaryText sm:text-lg text-base"
           >
             <span>Don't have any account create one? </span>
-            <span className="text-primaryText font-semibold font-poppins text-xl md:text-lg cursor-pointer">
+            <span className="text-primaryText font-semibold font-poppins md:text-xl text-lg cursor-pointer">
               Sign up
             </span>
           </Link>
