@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import Button from "../reusable/button";
 import Input from "../reusable/input";
 import Label from "../reusable/label";
 import useAxios from "../../services/api";
@@ -7,6 +6,7 @@ import { setUserInLocalStorage } from "../../utils/local-storage";
 import { Errors, UserFields } from "../../utils/types";
 import { formValidations } from "../../utils/validations";
 import { Link } from "react-router-dom";
+import Button from "../ui/button";
 
 const SignUpForm = ({
   setCompleted,
@@ -102,13 +102,7 @@ const SignUpForm = ({
           </div>
 
           <div className="flex flex-col gap-6">
-            <Button
-              type="primary"
-              btnType="submit"
-              size="xl"
-              text="sign up"
-              handleClick={submitHandler}
-            />
+            <Button onClick={submitHandler}>Sign Up</Button>
             <Link to="/login" className="text-secondaryText text-lg">
               <span>Already have an account? </span>
               <span className="text-primaryText font-semibold font-poppins text-xl cursor-pointer">

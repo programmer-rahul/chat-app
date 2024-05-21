@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import AppLogo from "../components/chat/top-bar/app-logo";
-import Button from "../components/reusable/button";
+import Button from "../components/ui/button";
 
 const GetStartedPage = () => {
   const navigate = useNavigate();
@@ -31,14 +31,10 @@ const GetStartedPage = () => {
               friends, meet new people, and engage in real-time conversations.
             </p>
 
-            <Button
-              type="primary"
-              size="2xl"
-              text="start chatting"
-              handleClick={() => {
-                navigate("/signup");
-              }}
-            />
+            <Button variant="primary" className="self-center" onClick={() => {
+              navigate("/signup");
+            }}>Start Chatting</Button>
+
             <div className="text-secondaryText text-lg">
               <span>Have a ChatCircle account? </span>
               <span

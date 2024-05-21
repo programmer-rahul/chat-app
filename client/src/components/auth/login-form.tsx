@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Button from "../reusable/button";
 import Input from "../reusable/input";
 import Label from "../reusable/label";
 import { Link } from "react-router-dom";
@@ -8,6 +7,7 @@ import { useAuth } from "../../context/auth-context";
 import { Errors, UserFields } from "../../utils/types";
 import { formValidations } from "../../utils/validations";
 import { setUserInLocalStorage } from "../../utils/local-storage";
+import Button from "../ui/button";
 
 const LoginForm = () => {
   const { fetchData, response } = useAxios();
@@ -82,13 +82,8 @@ const LoginForm = () => {
         </div>
 
         <div className="flex flex-col gap-6">
-          <Button
-            type="primary"
-            btnType="submit"
-            size="xl"
-            text="login"
-            handleClick={submitHandler}
-          />
+          <Button onClick={submitHandler}>Login</Button>
+
           <Link
             to="/signup"
             className="text-secondaryText sm:text-lg text-base"
