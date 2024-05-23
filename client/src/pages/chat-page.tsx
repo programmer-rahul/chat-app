@@ -4,26 +4,10 @@ import MessagesBar from "../components/chat/messages-bar/messages-bar";
 import Header from "../components/chat/top-bar/header";
 import socket from "../services/socket";
 import { useAuth } from "../context/auth-context";
-import { useConversation } from "../context/conversation-context";
 
 const ChatPage = () => {
 
   const { currentUser } = useAuth();
-  const { allConversations } = useConversation();
-
-  useEffect(() => {
-    if (allConversations?.length > 0) {
-      socket.emit("check-status", allConversations);
-      socket.on("online-users", (data) => {
-        console.log(allConversations);
-        // console.log('online users', data);
-        const onlineUsers = data.forEach((user, index) => {
-          console.log(user);
-        });
-        console.log("online", onlineUsers);
-      });
-    }
-  }, [allConversations]);
 
   useEffect(() => {
     const onConnect = () => {

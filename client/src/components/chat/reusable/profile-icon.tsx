@@ -28,7 +28,7 @@ const ProfileVariants = cva(
     variants: {
       variant: {
         'standard': "text-3xl",
-        'small': "md:w-6 md:h-6 lg:h-10 lg:w-10"
+        'small': "md:w-8 md:h-8 lg:h-10 lg:w-10"
       }
     }
   }

@@ -10,9 +10,8 @@ type MessageUserProps = {
 };
 
 const MessagedUser = ({ username, _id, avatar }: MessageUserProps) => {
+  
   const { setSelectedConversation, selectedConversation } = useConversation();
-  console.log(selectedConversation)
-  console.log(username, _id, avatar)
 
   return (
     <div

@@ -16,7 +16,6 @@ const socketConnectionHandler = (socket) => {
   });
 
   // getOnlineStatus
-
   socket.on("check-status", (data) => {
     console.log("data:", data);
     socket.emit("online-users", connectedUsers);
