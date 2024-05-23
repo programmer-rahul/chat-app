@@ -1,6 +1,7 @@
 import { useConversation } from "../../../context/conversation-context";
-import socket from "../../../services/socket";
+import { cn } from "../../../utils/cn";
 import ProfileIcon from "../reusable/profile-icon";
+
 
 type MessageUserProps = {
   username: string;
@@ -9,15 +10,19 @@ type MessageUserProps = {
 };
 
 const MessagedUser = ({ username, _id, avatar }: MessageUserProps) => {
-  const { setSelectedConversation } = useConversation();
+  const { setSelectedConversation, selectedConversation } = useConversation();
+  console.log(selectedConversation)
+  console.log(username, _id, avatar)
 
   return (
     <div
       onClick={() => setSelectedConversation({ username, _id, avatar })}
-      className="user cursor-pointer flex gap-2 items-center w-full"
+      className={cn("user cursor-pointer flex gap-2 items-center w-full p-1 rounded-md sm:p-2",
+        _id === selectedConversation?._id && "bg-secondaryBackground"
+      )}
     >
       <div>
-        <ProfileIcon isPrimary={true} src={avatar} username={username} />
+        <ProfileIcon variant="standard" src={avatar} username={username} />
       </div>
       <div className="flex flex-col w-full h-full justify-between py-2">
         <div className="flex gap-4 items-center">

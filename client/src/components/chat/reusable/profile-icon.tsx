@@ -23,7 +23,7 @@ const ProfileIcon = ({ variant, className = "", src = "", username = '' }: Profi
 }
 
 const ProfileVariants = cva(
-  "w-14 h-14 rounded-full grid place-items-center select-none",
+  "w-12 h-12 rounded-full grid place-items-center select-none",
   {
     variants: {
       variant: {

@@ -7,7 +7,7 @@ import {
 } from "react";
 import { MessageType } from "../components/chat/chats-bar/conversation.js";
 
-type Conversation = {
+export type Conversation = {
   _id: string,
   username: string,
   avatar?: string,

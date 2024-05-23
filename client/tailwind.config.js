@@ -17,12 +17,6 @@ export default {
 
         input: "rgba(var(--input))",
         inputText: "rgba(var(--input-text))",
-
-        // primaryBtn: "rgba(var(--primary-btn))",
-        // primaryBtnText: "rgba(var(--primary-btn-text))",
-
-        // SecondaryBtn: "rgba(var(--secondary-btn))",
-        // SecondaryBtnText: "rgba(var(--secondary-btn-text))",
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

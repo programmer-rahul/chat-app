@@ -42,13 +42,13 @@ const ChatsBar = () => {
           <SendingInputBar />
         </div>
       ) : (
-        <WelcomeMessage />
+        <NoConversationSelectedMessage />
       )}
     </div>
   );
 };
 
-const WelcomeMessage = () => {
+const NoConversationSelectedMessage = () => {
   return (
     <div className="text-center mt-40">
       <p className="text-3xl text-primaryText">Select chat to get started</p>

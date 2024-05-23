@@ -10,7 +10,7 @@ cloudinary.config({
 const uploadOnCloudinary = async(fileLocalPath) => {
     try {
         if(!fileLocalPath) return ;
-        const uploadedImage = await cloudinary.uploader.upload(fileLocalPath,{resource_type: 'auto',});
+        const uploadedImage = await cloudinary.uploader.upload(fileLocalPath,{resource_type: 'auto',folder : "chatcircle"});
 
         fs.unlinkSync(fileLocalPath);
         return uploadedImage
