@@ -15,15 +15,16 @@ const SelectProfleImage = () => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
+    const [isImageUpdating, setIsImageUpdating] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         if (response) {
+            setIsImageUpdating(false);
             if (response.status) {
                 if (!response.data) return
                 setUserInLocalStorage(response.data.updatedImage as User)
                 setIsAuth(true);
-
             }
         }
     }, [response]);
@@ -37,9 +38,14 @@ const SelectProfleImage = () => {
         e.preventDefault();
         if (selectedImage === null) return
 
+        if (isImageUpdating) return;
+        console.log('api called');
+
         const formData = new FormData();
         formData.append('profile', selectedImage)
 
+
+        setIsImageUpdating(true);
         await fetchData({ url: "/user/update-profile", method: "put", data: formData, withCredentials: true })
     }
 

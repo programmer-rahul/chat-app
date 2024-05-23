@@ -1,6 +1,5 @@
 import { cva } from 'class-variance-authority';
 import { cn } from '../../../utils/cn';
-import CustomImportMeta from '../../../utils/variables';
 
 type ProfileTypes = {
   variant?: "standard" | "small",
@@ -9,14 +8,14 @@ type ProfileTypes = {
   username?: string,
 }
 
-const ProfileIcon: React.FC<ProfileTypes> = ({ variant, className = "", src = "", username = '' }) => {
+const ProfileIcon = ({ variant, className = "", src = "", username = '' }: ProfileTypes) => {
 
   return <div className={cn(ProfileVariants({ variant }), className)}>
     {
       src ? <img
-        src={`${(import.meta as CustomImportMeta).env.VITE_API_BASE_URL}/${src}`}
+        src={src}
         alt="user-profile.svg"
-        className="rounded-full h-full w-full  object-cover"
+        className="rounded-full h-full w-full object-cover select-none"
       /> :
         <div className="capitalize text-primaryText font-semibold bg-indigo-600 w-full h-full rounded-full grid place-content-center">{!src && username[0]}</div>
     }
@@ -24,7 +23,7 @@ const ProfileIcon: React.FC<ProfileTypes> = ({ variant, className = "", src = ""
 }
 
 const ProfileVariants = cva(
-  "w-14 h-14 rounded-full grid place-items-center",
+  "w-14 h-14 rounded-full grid place-items-center select-none",
   {
     variants: {
       variant: {

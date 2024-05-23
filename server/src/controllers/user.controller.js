@@ -8,6 +8,8 @@ import {
 } from "../utils/generateToken.js";
 import { CookieOptions } from "../constants.js";
 import { validateToken } from "../utils/validateToken.js";
+import {uploadOnCloudinary} from "../utils/cloudinary.js";
+
 
 const registerController = asyncHandler(async (req, res, next) => {
   const { username, password } = req.body;
@@ -123,19 +125,26 @@ const getAllUserController = asyncHandler(async (req, res, next) => {
 });
 
 const updateProfileImage = asyncHandler(async (req, res, next) => {
-  console.log(req.file);
+  console.log('image uploaded starts');
 
   if (!req?.file) return next(new ApiError(400, "Images not available"));
+
+
+  const uploadImage = await uploadOnCloudinary(req.file.path);
+
+  if(!uploadImage) return next(new ApiError(400, "Error in image uploading"));
 
   const updatedImage = await User.findByIdAndUpdate(
     req?.user?._id,
     {
-      $set: { avatar: req?.file?.filename },
+      $set: { avatar: uploadImage.secure_url },
     },
     { new: true }
   ).select("avatar refreshToken username");
 
   if (!updatedImage) return next(new ApiError(400, "User is not found"));
+
+  console.log('image uploaded ends');
 
   return res
     .status(202)
