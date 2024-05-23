@@ -10,14 +10,14 @@ type MessageUserProps = {
 };
 
 const MessagedUser = ({ username, _id, avatar }: MessageUserProps) => {
-  
+
   const { setSelectedConversation, selectedConversation } = useConversation();
 
   return (
     <div
       onClick={() => setSelectedConversation({ username, _id, avatar })}
-      className={cn("user cursor-pointer flex gap-2 items-center w-full p-1 rounded-md sm:p-2",
-        _id === selectedConversation?._id && "bg-secondaryBackground"
+      className={cn("user cursor-pointer flex gap-2 items-center w-full p-1 rounded-md sm:p-2 border-2 border-transparent",
+        _id === selectedConversation?._id && "border-primaryMessage/50"
       )}
     >
       <div>

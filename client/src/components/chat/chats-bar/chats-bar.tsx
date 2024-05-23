@@ -6,8 +6,6 @@ import SendingInputBar from "./sending-input-bar";
 import useAxios from "../../../services/api";
 import socket from "../../../services/socket";
 
-import { format } from 'date-fns'
-
 const ChatsBar = () => {
   const { selectedConversation, setSelectedConversationMessages, selectedConversationMessages } = useConversation();
   const { response, fetchData } = useAxios();
@@ -17,20 +15,12 @@ const ChatsBar = () => {
   }, [selectedConversation]);
 
   useEffect(() => {
-    if (response) {
-      if (response.status) {
-        response.data && setSelectedConversationMessages(response.data.conversation as MessageType[]);
-        if (response.data?.conversation) {
-          const formated = format(new Date(response.data?.conversation[0].createdAt), 'p')
-          console.log(formated);
-        }
+    response &&
+      response.status &&
+      response.data && setSelectedConversationMessages(response.data.conversation as MessageType[])
 
-      }
-      else {
-        console.log("Error in fetching conversations");
-      }
-    }
   }, [response]);
+
   socket
     .on('recieve-message', (data: MessageType) => {
       console.log("Message Recieved :- ", data);
@@ -38,9 +28,9 @@ const ChatsBar = () => {
     })
 
   return (
-    <div className="h-full">
+    <div className="h-full bg-secondaryBackground mx-4 rounded-md">
       {selectedConversation ? (
-        <div className="main h-full px-4">
+        <div className="main h-full px-4 bg-secondaryBackground rounded-md">
           <ChatTopBar />
           <Conversation />
           <SendingInputBar />
@@ -54,7 +44,7 @@ const ChatsBar = () => {
 
 const NoConversationSelectedMessage = () => {
   return (
-    <div className="text-center mt-40">
+    <div className="text-center flex items-center justify-center pb-40 h-full">
       <p className="text-3xl text-primaryText">Select chat to get started</p>
     </div>
   );

@@ -30,9 +30,9 @@ const ChatPage = () => {
         </div>
 
         {/* main  */}
-        <div className="h-[94%] w-full py-2 flex sm:h-[92%]">
+        <div className="h-[94%] w-full py-4 flex sm:h-[92%]">
           {/* message-bar  */}
-          <div className="messages-bar w-full md:w-[50%] lg:w-[40%]">
+          <div className="messages-bar w-full md:w-[50%] lg:w-[40%] bg-secondaryBackground rounded-md">
             <MessagesBar />
           </div>
           {/* chats-bar  */}

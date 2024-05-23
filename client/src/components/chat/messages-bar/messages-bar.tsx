@@ -25,8 +25,8 @@ const MessagesBar = () => {
 
   return (
     <div className="h-full">
-      <div className="main h-full">
-        <h2 className="text-base text text-primaryMessage h-[4%] md:text-xl">
+      <div className="main h-full px-2">
+        <h2 className="text-base font-semibold text-primaryMessage h-[4%] md:text-xl">
           Messages
         </h2>
 
