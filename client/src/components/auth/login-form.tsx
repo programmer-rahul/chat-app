@@ -30,6 +30,7 @@ const LoginForm = () => {
           return { ...prev, apiError: response.message };
         });
         console.log("error in login", errors);
+        console.log("error in login", response);
       }
     }
   }, [response]);
@@ -78,7 +79,12 @@ const LoginForm = () => {
             {errors?.password && (
               <p className="text-rose-600">{errors.password}</p>
             )}
+
           </div>
+          {
+            errors?.apiError &&
+            <p className="text-rose-600">{errors.apiError}</p>
+          }
         </div>
 
         <div className="flex flex-col gap-6">

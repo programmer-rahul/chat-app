@@ -105,6 +105,12 @@ const SignUpForm = ({
                 <p className="text-rose-600">{errors.confPassword}</p>
               )}
             </div>
+
+            {/* dispaly api errors  */}
+            {
+              errors?.apiError &&
+              <p className="text-rose-600">{errors.apiError}</p>
+            }
           </div>
 
           <div className="flex flex-col gap-6">
