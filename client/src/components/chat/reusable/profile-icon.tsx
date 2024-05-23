@@ -1,21 +1,20 @@
+import { cva } from 'class-variance-authority';
+import { cn } from '../../../utils/cn';
+import CustomImportMeta from '../../../utils/variables';
+
 type ProfileTypes = {
-  isPrimary?: boolean,
-  styles?: string,
+  variant?: "standard" | "small",
+  className?: string,
   src?: string,
   username?: string,
 }
 
-const ProfileIcon: React.FC<ProfileTypes> = ({ isPrimary = true, styles = "", src = "", username = '' }) => {
-  // primary for big and non-primary for small
+const ProfileIcon: React.FC<ProfileTypes> = ({ variant, className = "", src = "", username = '' }) => {
 
-  const imageCss = isPrimary
-    ? "w-14 h-14 rounded-full grid place-items-center text-3xl"
-    : "w-14 h-14 md:w-6 md:h-6 lg:h-10 lg:w-10 rounded-full grid place-items-center";
-
-  return <div className={`${imageCss} ${styles}`}>
+  return <div className={cn(ProfileVariants({ variant }), className)}>
     {
       src ? <img
-        src={`http://localhost:5000/${src}`}
+        src={`${(import.meta as CustomImportMeta).env.VITE_API_BASE_URL}/${src}`}
         alt="user-profile.svg"
         className="rounded-full h-full w-full  object-cover"
       /> :
@@ -23,5 +22,18 @@ const ProfileIcon: React.FC<ProfileTypes> = ({ isPrimary = true, styles = "", sr
     }
   </div>
 }
+
+const ProfileVariants = cva(
+  "w-14 h-14 rounded-full grid place-items-center",
+  {
+    variants: {
+      variant: {
+        'standard': "text-3xl",
+        'small': "md:w-6 md:h-6 lg:h-10 lg:w-10"
+      }
+    }
+  }
+)
+
 
 export default ProfileIcon;

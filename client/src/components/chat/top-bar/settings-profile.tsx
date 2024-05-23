@@ -40,9 +40,10 @@ const SettingsProfile = () => {
       </div>
 
       <ProfileIcon
-        isPrimary={true}
+        variant="small"
         src={currentUser?.avatar}
         username={currentUser?.username}
+
       />
     </div>
   );

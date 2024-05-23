@@ -7,12 +7,11 @@ import { useAuth } from "../context/auth-context";
 import { useConversation } from "../context/conversation-context";
 
 const ChatPage = () => {
-  const { currentUser } = useAuth();
 
+  const { currentUser } = useAuth();
   const { allConversations } = useConversation();
 
   useEffect(() => {
-    // console.log('changed');
     if (allConversations?.length > 0) {
       socket.emit("check-status", allConversations);
       socket.on("online-users", (data) => {
@@ -27,11 +26,15 @@ const ChatPage = () => {
   }, [allConversations]);
 
   useEffect(() => {
-    const mainFunc = () => {
+    const onConnect = () => {
       console.log("Connected To Server :)");
       socket.emit("login", currentUser?._id);
     };
-    socket.on("connect", mainFunc);
+    socket.on("connect", onConnect);
+
+    return () => {
+      socket.off('connect', onConnect);
+    }
   }, []);
 
   return (
