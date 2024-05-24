@@ -11,6 +11,9 @@ dotenv.config({
 // socket connection
 io.on("connection", socketConnectionHandler);
 
+
+
+
 connectDB()
   .then(() => {
     server.listen(process.env.PORT, () => {

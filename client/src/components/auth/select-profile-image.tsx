@@ -71,7 +71,7 @@ const SelectProfleImage = () => {
 
                     <img src="profile.png" alt="profile-image" className="border object-cover w-full h-full rounded-full absolute left-0 top-0 border-red-500" ref={imageRef} />
 
-                    <input type="file" accept="image/png" className="w-full h-full border rounded-full cursor-pointer absolute top-0 left-0 hidden" onChange={inputChangeHandler} ref={fileInputRef} />
+                    <input type="file" accept="image/*" className="w-full h-full border rounded-full cursor-pointer absolute top-0 left-0 hidden" onChange={inputChangeHandler} ref={fileInputRef} />
                 </div>
             </div>
             <div className="flex w-full justify-between flex-col gap-8 md:gap-0 md:flex-row">

@@ -11,7 +11,10 @@ type MessageUserProps = {
 
 const MessagedUser = ({ username, _id, avatar }: MessageUserProps) => {
 
-  const { setSelectedConversation, selectedConversation } = useConversation();
+  const { setSelectedConversation, selectedConversation, onlineUsersList } = useConversation();
+
+  const isOnline = onlineUsersList.some(userId => userId === _id);
+  console.log(isOnline)
 
   return (
     <div
@@ -20,20 +23,21 @@ const MessagedUser = ({ username, _id, avatar }: MessageUserProps) => {
         _id === selectedConversation?._id && "border-primaryMessage/50"
       )}
     >
-      <div>
+      <div className="relative">
         <ProfileIcon variant="standard" src={avatar} username={username} />
+        <span className={`w-5 h-5 bottom-0 right-0 absolute border-4 border-secondaryBackground rounded-full ${onlineUsersList.some(userId => userId === _id) ? " bg-online" : "bg-offline"}`}></span>
       </div>
+
       <div className="flex flex-col w-full h-full justify-between py-2">
         <div className="flex gap-4 items-center">
           <p className="username text-primaryText text-lg capitalize">{username}</p>
-          <span className="w-3 h-3 rounded-full bg-green-600"></span>
         </div>
         <div className="flex justify-between w-full text-secondaryText text-sm md:text-xs">
           <p className="message">Hey Wat's app buddy</p>
           <p className="last-online">20m</p>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 export default MessagedUser;

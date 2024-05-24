@@ -18,20 +18,25 @@ type ConversationContextType = {
   allConversations: Conversation[];
   selectedConversation: Conversation | null;
   selectedConversationMessages: MessageType[];
+  onlineUsersList: string[];
 
   setAllConversations: Dispatch<SetStateAction<Conversation[]>>
   setSelectedConversation: Dispatch<SetStateAction<Conversation | null>>;
   setSelectedConversationMessages: Dispatch<SetStateAction<MessageType[]>>
+  setOnlineUsersList: Dispatch<SetStateAction<string[]>>;
+
 };
 
 const ConversationContext = createContext<ConversationContextType>({
   allConversations: [],
   selectedConversation: null,
   selectedConversationMessages: [],
+  onlineUsersList: [],
 
   setAllConversations: () => { },
   setSelectedConversation: () => { },
   setSelectedConversationMessages: () => { },
+  setOnlineUsersList: () => { },
 });
 
 export const ConversationProvider = ({
@@ -45,15 +50,19 @@ export const ConversationProvider = ({
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [selectedConversationMessages, setSelectedConversationMessages] = useState<MessageType[]>([]);
 
+  const [onlineUsersList, setOnlineUsersList] = useState<string[]>([]);
+
   return (
     <ConversationContext.Provider
       value={{
         allConversations,
         selectedConversation,
         selectedConversationMessages,
+        onlineUsersList,
         setAllConversations,
         setSelectedConversation,
-        setSelectedConversationMessages
+        setSelectedConversationMessages,
+        setOnlineUsersList
       }}
     >
       {children}

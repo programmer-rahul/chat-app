@@ -193,7 +193,7 @@ const refreshAccessToken = asyncHandler(async (req, res, next) => {
   const refreshToken = req.cookies.refreshToken;
   // console.log("refrsh token :- ", refreshToken);
 
-  if (!refreshToken) return next(new ApiError(401, "Refresh token required"));
+  if (!refreshToken) return next(new ApiError(401, "Refresh token required"));;
 
   const userDetails = validateToken(
     refreshToken,

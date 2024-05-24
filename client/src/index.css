@@ -28,6 +28,9 @@
   --secondary-btn-text: 189, 189, 189;
 
   --gradient-text: 255, 0, 0;
+
+  --online: 132 204 22;
+  --offline: 244 63 94;
 }
 
 html,
@@ -51,7 +54,10 @@ body {
 }
 .text-gradient {
   background: #121fcf;
-  background: linear-gradient(to right, #121fcf 0%, #6ccf56 100%);
+
+  /* background: linear-gradient(45deg, #c615b8, #dadbac); */
+  background: linear-gradient(10deg, #ab354b, #fbe725);
+
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

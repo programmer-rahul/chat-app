@@ -4,20 +4,30 @@ import MessagesBar from "../components/chat/messages-bar/messages-bar";
 import Header from "../components/chat/top-bar/header";
 import socket from "../services/socket";
 import { useAuth } from "../context/auth-context";
+import { useConversation } from "../context/conversation-context";
 
 const ChatPage = () => {
 
   const { currentUser } = useAuth();
+  const { setOnlineUsersList } = useConversation();
+
+  // socket functions 
+  const onConnect = () => {
+    console.log("Connected To Server :)");
+    socket.emit("login", currentUser?._id);
+  };
+  const onUpdatedOnlineUsersList = (data: string[]) => {
+    if (!data.length) return;
+    setOnlineUsersList(data);
+  }
 
   useEffect(() => {
-    const onConnect = () => {
-      console.log("Connected To Server :)");
-      socket.emit("login", currentUser?._id);
-    };
     socket.on("connect", onConnect);
+    socket.on('updated-online-users-list', onUpdatedOnlineUsersList)
 
     return () => {
       socket.off('connect', onConnect);
+      socket.off('updated-online-users-list', onUpdatedOnlineUsersList)
     }
   }, []);
 
@@ -40,7 +50,7 @@ const ChatPage = () => {
             <ChatsBar />
           </div>
           {/* current-user-details  */}
-          <div className="current-user-bar border w-[35%] hidden 2xl:block"></div>
+          <div className="current-user-bar bg-secondaryBackground rounded-md w-[35%] hidden 2xl:block"></div>
         </div>
       </div>
     </main>

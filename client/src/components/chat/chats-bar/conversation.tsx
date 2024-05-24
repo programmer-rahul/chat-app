@@ -22,7 +22,7 @@ const Conversation = () => {
   }, [selectedConversationMessages]);
 
   return (
-    <div className="chats border-b flex flex-col justify-start gap-6 pr-2 h-[84%] overflow-x-hidden no-scrollbar py-6">
+    <div className="chats border-b border-border flex flex-col justify-start gap-6 pr-2 pb-9 h-[84%] overflow-x-hidden no-scrollbar">
       {selectedConversationMessages?.map((message, index) => {
         let formattedDate = message.createdAt ? formatMessageDate(message.createdAt) : "";
 

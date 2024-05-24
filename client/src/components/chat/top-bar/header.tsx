@@ -5,7 +5,7 @@ import SettingsProfile from "./settings-profile";
 const Header = () => {
   return (
     <div className="flex h-full">
-      <div className="flex items-center justify-between border-b w-full text-primaryText">
+      <div className="flex items-center justify-between border-b w-full text-primaryText border-border">
         <AppLogo />
         <SearchInput />
         <SettingsProfile />

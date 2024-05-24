@@ -42,6 +42,7 @@ const MessageSide = ({ isCurrentUser, message, createdAt }: Partial<MessageProps
       >
         <p className="message-text text-primaryText font-semibold">{message?.message}</p>
       </div>
+      
       <div
         className={`message-details text-xs space-x-1 text-secondaryText md:text-[10px] ${isCurrentUser ? "self-end" : "self-start "
           }`}

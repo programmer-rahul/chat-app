@@ -1,4 +1,5 @@
 import storeMessageInDB from "../db/storeMessageInDB.js";
+import io from './socket.js'
 
 // total users connected to server
 let connectedUsers = [];
@@ -22,22 +23,33 @@ const socketConnectionHandler = (socket) => {
   });
 };
 
-export default socketConnectionHandler;
 
-const loginSocket = (socket, userId) => {
+// socket listeners and emiters
+const loginSocket = (socket, userId ) => {
   // Modify loginSocket to accept socket as a parameter
   const isUserExists = connectedUsers.some((user) => user.userId === userId);
   if (!isUserExists) {
     const user = { userId, socketId: socket.id };
     connectedUsers.push(user);
   }
-  console.log("Total Connection Count :- ", connectedUsers.length);
+  console.log("Total Connection Count :- ", connectedUsers);
+
+
+  // to send all online users list 
+  const onlineUsersList = connectedUsers.map(user => user.userId);
+
+  io.emit('updated-online-users-list',onlineUsersList);
 };
 
 const disconnectSocket = (socket) => {
   connectedUsers = connectedUsers.filter((user) => user.socketId !== socket.id);
   console.log("A user disconnected ");
-  console.log("Total Connection Count :- ", connectedUsers.length);
+  console.log("Total Connection Count :- ", connectedUsers);
+
+   // to send all online users list 
+   const onlineUsersList = connectedUsers.map(user => user.userId);
+
+   socket.broadcast.emit('updated-online-users-list',onlineUsersList);
 };
 
 const messageSocket = (socket, { message, recipient, sender }) => {
@@ -60,3 +72,6 @@ const messageSocket = (socket, { message, recipient, sender }) => {
     console.log("Message stored to DB");
   }
 };
+
+
+export default socketConnectionHandler;
